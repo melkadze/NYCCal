@@ -39,7 +39,7 @@ const generate = () => {
     let lit = "";
     //Get previous month dates
     for(let i = dayOne; i>0;i--){
-        lit += `<li class="inactive">$(lastMonthDate-i+1)</li>`;
+        lit += `<li class="inactive">${lastMonthDate-i+1}</li>`;
     }
 
     //Add current month dates
@@ -60,8 +60,27 @@ const generate = () => {
 
     day.innerHTML = lit;
 }
-
-
     generate();
+
+    icons.forEach(icon => {
+       icon.addEventListener("click", ()=>{
+            if(icon.id === "calendar-prev"){
+                month = month -1;
+            }
+            else {
+                month = month +1;
+            }
+            if(month<0 || month>11){
+
+                date = new Date(year,month, new Date().getDate());
+                month = date.getMonth();
+                year = date.getFullYear();
+            }
+            else{
+                date = new Date();
+            }
+            generate();
+       });
+    });
 }
 
