@@ -1,15 +1,37 @@
+.Menu {
+    list-style-type: none;
+    margin: 10px;
+    padding: 10px;
+    overflow: hidden;
+    background-color: rgb(66, 180, 218);
+}
+
+.Menu li {
+    float: left;
+}
+
+.Menu li a {
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.Menu li a:hover {
+    background-color: #111;
+}
+
 .calendar-overview {
     display: flex;
-    background: #ef62da;
-    min-height: 100vh;
+    background: white;
     padding: 0 10px;
-    align-items: center;
     justify-content: center;
 }
 
 .calendar-container {
     background: #fff;
-    width: 450px;
+    height: fit-content;
+    width: 354px;
     border-radius: 10px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
