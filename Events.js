@@ -82,5 +82,19 @@ const generate = () => {
             generate();
        });
     });
+
+    const addEvent = (title, time_location, summary, price) => {
+        let event = "";
+        event += `<div class="Event">`;
+        event += `<h3>${title}</h3>`;
+        event += `<p>Time and Location: ${time_location}</p>`;
+        event += `<p>Summary: ${summary}</p>`;
+        event += `<p>Price: ${price}</p>`;
+        event += `<hr> </div>`;
+        return event;
+    }
+
+    var listings = document.getElementById("Event Listings");
+    listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
 }
 

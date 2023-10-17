@@ -136,3 +136,7 @@ header .calendar-current-date {
 .calendar-dates li:not(.active):hover::before {
     background: #e4e1e1;
 }
+
+.Event {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
