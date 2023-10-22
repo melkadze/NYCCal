@@ -98,7 +98,7 @@ const generate = () => {
 
     //Event header
     const createEventHeader = (date,first) => {
-        var dateFormat = date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear();
+        var dateFormat = date.getMonth()+1 + '/' + date.getDate() + '/' + date.getFullYear();
         let header = "";
         if(first != true){
             header += `</div>`;
@@ -110,9 +110,14 @@ const generate = () => {
 
     const createEventList = (month, year) => {
         var listings = document.getElementById("Event Listings");
-        listings.innerHTML = "";
+        listings.innerHTML = "";        
+        var todaysDate = new Date();        
+        if(year < todaysDate.getFullYear() || (year === todaysDate.getFullYear() && month < todaysDate.getMonth())){
+            return;
+        }
         var listingDate;
-        if(month == date.getMonth()){
+
+        if(month === todaysDate.getMonth() && year === todaysDate.getFullYear()){
             listingDate = new Date();
         }
         else {
@@ -127,8 +132,10 @@ const generate = () => {
             else{
                 var nextDate = new Date(listingDate.getFullYear(), listingDate.getMonth(), i);
                 listings.innerHTML += createEventHeader(nextDate,false);
+                listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
             }
-        }        
+        } 
+        listings += `</div>`;       
     }
     createEventList(month,year);
 }
