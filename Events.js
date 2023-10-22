@@ -80,9 +80,11 @@ const generate = () => {
                 date = new Date();
             }
             generate();
+            createEventList(month,year);
        });
     });
 
+    //Function to add an event
     const addEvent = (title, time_location, summary, price) => {
         let event = "";
         event += `<div class="Event">`;
@@ -94,7 +96,40 @@ const generate = () => {
         return event;
     }
 
-    var listings = document.getElementById("Event Listings");
-    listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
+    //Event header
+    const createEventHeader = (date,first) => {
+        var dateFormat = date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear();
+        let header = "";
+        if(first != true){
+            header += `</div>`;
+        }
+        header += `<div>`;
+        header += `<h1> Event Listing: ${dateFormat} </h1>`;
+        return header;
+    }
+
+    const createEventList = (month, year) => {
+        var listings = document.getElementById("Event Listings");
+        listings.innerHTML = "";
+        var listingDate;
+        if(month == date.getMonth()){
+            listingDate = new Date();
+        }
+        else {
+            listingDate = new Date(year,month,1);
+        }
+        var lastDateOfMonth = new Date(listingDate.getFullYear(), listingDate.getMonth()+1, 0);
+        for(let i = listingDate.getDate(); i <= lastDateOfMonth.getDate(); i++){
+            if(i === listingDate.getDate()){
+                listings.innerHTML += createEventHeader(listingDate,true);
+                listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
+            }
+            else{
+                var nextDate = new Date(listingDate.getFullYear(), listingDate.getMonth(), i);
+                listings.innerHTML += createEventHeader(nextDate,false);
+            }
+        }        
+    }
+    createEventList(month,year);
 }
 
