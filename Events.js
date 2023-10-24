@@ -88,10 +88,12 @@ const generate = () => {
     const addEvent = (title, time_location, summary, price) => {
         let event = "";
         event += `<div class="Event">`;
-        event += `<h3>${title}</h3>`;
-        event += `<p>Time and Location: ${time_location}</p>`;
-        event += `<p>Summary: ${summary}</p>`;
-        event += `<p>Price: ${price}</p>`;
+        event += `<h2>${title}</h3>`;
+        event += `<h3>Time and Location: ${time_location}</p>`;
+        event += `<h3>Summary: ${summary}</p>`;
+        event += `<h3>Price: ${price}</p>`;
+        event += `<button class="EventButton"> Sign up</button>`;
+        event += `<button class="EventButton"> Share </button>`;        
         event += `<hr> </div>`;
         return event;
     }

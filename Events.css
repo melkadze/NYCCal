@@ -3,7 +3,7 @@
     margin: 10px;
     padding: 10px;
     overflow: hidden;
-    background-color: rgb(66, 180, 218);
+    background-color: blue;
 }
 
 .Menu li {
@@ -130,7 +130,7 @@ header .calendar-current-date {
 }
  
 .calendar-dates li.active::before {
-    background: #6332c5;
+    background: blue;
 }
  
 .calendar-dates li:not(.active):hover::before {
@@ -139,4 +139,16 @@ header .calendar-current-date {
 
 .Event {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.EventButton {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    font-size:medium;
+    text-align: center;
+    border: none;
+    width: 100%;
+    margin-bottom: 10px;
 }
