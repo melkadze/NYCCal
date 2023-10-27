@@ -21,8 +21,8 @@ window.onload = function (){
                 this.style.color = "white";
             }
             else {
-                this.style.background = "rgb(190, 0, 0)";
-                this.style.color = "white";
+                this.style.background = "rgb(207, 207, 207)";
+                this.style.color = "black";
             }
         })
     }
