@@ -3,7 +3,7 @@ const router = require("express").Router()
 // for now, just redirect to user settings if possible
 router.get("/", (req, res) => {
 	try{
-		res.redirect("/settings")
+		res.redirect("/events")
 	} catch(err) {
 		functions.error(res, 500, err)
 	}

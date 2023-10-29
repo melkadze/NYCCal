@@ -28,9 +28,11 @@ app.use(passport.session())
 const rootRouter = require("./routers/root")
 const authRouter = require("./routers/auth")
 const settingsRouter = require("./routers/settings")
+const eventsRouter = require("./routers/events")
 app.use("/", rootRouter)
 app.use("/auth", authRouter)
 app.use("/settings", settingsRouter)
+app.use("/events", eventsRouter)
 
 //open the server
 app.listen(process.env.PORT, () => {
