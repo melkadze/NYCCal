@@ -1,1 +1,15 @@
 /* put any styling here */
+
+body {
+    background-color: lightblue;
+}
+
+div {
+    height: 90%;
+    width: 100%;
+    text-align: center;
+}
+
+div h2 {
+    padding-top: 60%;
+}
