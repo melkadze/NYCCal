@@ -10,10 +10,18 @@ const eventSchema = new mongoose.Schema(
 		appointment: {
 		type: String
 		},
-		// description of event
-		summary: {
-		type: String
-		},
+                // short description of event
+                summary: {
+                type: String
+                },
+                // long description of event
+                description: {
+                type: String
+                },
+                // contact information
+                contact: {
+                type: String
+                },
 		// string of price, such as Free or $10 or $5/round
 		price: {
 		type: String
