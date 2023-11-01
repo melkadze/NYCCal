@@ -86,14 +86,15 @@ const generate = () => {
 
     //Function to add an event
     const addEvent = (title, time_location, summary, price) => {
+        let SignUpButtonID = title + ";;; " + time_location;
         let event = "";
         event += `<div class="Event">`;
         event += `<h2>${title}</h3>`;
         event += `<h3>Time and Location: ${time_location}</p>`;
         event += `<h3>Summary: ${summary}</p>`;
         event += `<h3>Price: ${price}</p>`;
-        event += `<button class="EventButton"> Sign up</button>`;
-        event += `<button class="EventButton"> Share </button>`;        
+        event += `<button id="${SignUpButtonID}" class="SignUpButton"> Sign up</button>`;
+        event += `<button class="ShareEventButton"> Share </button>`;        
         event += `<hr> </div>`;
         return event;
     }
@@ -140,5 +141,21 @@ const generate = () => {
         listings += `</div>`;       
     }
     createEventList(month,year);
+    
+var SignUpButtons = document.querySelectorAll('.SignUpButton');
+SignUpButtons.forEach((button) =>{
+    let arr = button.id.split(";;; ");
+    button.addEventListener("click",function(){
+        if(this.innerHTML === "Sign up"){
+            this.style.background = "green";
+            this.innerHTML = "Signed up";
+            console.log(arr);
+        }
+        else {
+            this.style.background = "blue";
+            this.innerHTML = "Sign up";
+        }
+    });
+})
 }
 

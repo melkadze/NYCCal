@@ -141,7 +141,19 @@ header .calendar-current-date {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
-.EventButton {
+.ShareEventButton {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    font-size:medium;
+    text-align: center;
+    border: none;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.SignUpButton {
     padding: 10px 20px;
     background-color: blue;
     color: white;
