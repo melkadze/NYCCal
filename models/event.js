@@ -2,38 +2,50 @@ const mongoose = require("mongoose")
 
 const eventSchema = new mongoose.Schema(
 	{
-		// full name
+		// title/name
 		name: {
-			type: String
+		type: String,
+		required: true
 		},
-		// time and date
+		// date (format 
+		date: {
+		type: Date,
+		required: true
+		},
+		// time and location
 		appointment: {
-		type: String
+		type: String,
+		required: true
 		},
-                // short description of event
-                summary: {
-                type: String
-                },
-                // long description of event
-                description: {
-                type: String
-                },
-                // contact information
-                contact: {
-                type: String
-                },
+		// short description of event
+		summary: {
+		type: String,
+		required: true
+		},
+		// long description of event
+		description: {
+		type: String,
+		required: true
+		},
+		// contact information
+		contact: {
+		type: String,
+		required: true
+		},
 		// string of price, such as Free or $10 or $5/round
 		price: {
-		type: String
+		type: String,
+		required: true
+		},
+		// accessibility description
+		accessibility: {
+		type: String,
+		required: true
 		},
 		// string of tags, space-separated
 		tags: {
-		type: String
-		},
-		// unique ID
-		eventID: {
-			type: String,
-			unique: true
+		type: String,
+		required: true
 		}
 	},
 	{

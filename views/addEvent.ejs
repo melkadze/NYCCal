@@ -3,8 +3,8 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Add Event</title>
-	<link rel="stylesheet" href="../public/styles/addEvent.css" />
 	<!-- <link rel="icon" type="image/png" href="../assets/favicon.svg"> -->
+    <script src="../scripts/addEvent.js"> </script>
 </head>
 <body>
     <h2> Enter Information to Create Event </h2>
@@ -12,6 +12,15 @@
         <div class="Inputs">
           <label for="Title">Title: </label>
           <input type="text" id="title" name="title" />
+          <br>
+          <label for="Date: month">Date (month, 1-12): </label>
+          <input type="text" id="month" name="date-month" />
+          <br>
+          <label for="Date: day">Date (day): </label>
+          <input type="text" id="day" name="date-day" />
+          <br>
+          <label for="Date: year">Date (year): </label>
+          <input type="text" id="year" name="date-year" />
           <br>
           <label for="Time and Location">Time and Location: </label>
           <input type="text" id="TimeandLocation" name="TimeandLocation" />
@@ -31,9 +40,12 @@
           <label for="Contact Information">Contact Information </label>
           <input type="text" id="ContactInformation" name="ContactInformation" />
           <br>
+          <label for="Tags">Tags</label>
+          <input type="text" id="Tags" name="Tags" />
+          <br>
         </div>
         <div>
-          <button style="font-size: larger;">Submit</button>
+          <button id="SubmitButton" style="font-size: larger;">Submit</button>
         </div>
       </form>      
 </body>

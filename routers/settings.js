@@ -31,14 +31,27 @@ router.post("/upload", auth, async (req, res) => {
 router.get("/reset", auth, async (req, res) => {
 	try {
 		const adv = await Preference.find({ owner: req.user._id })
-			if (adv) {
-				console.log ("FULL LIST:")
-				console.log(adv)
-				for (let i = 0; i < adv.length; i++) {
-					await Preference.deleteOne({ owner: req.user._id, _id: adv[i]._id})
-				}
-				res.send(adv)
+		if (adv) {
+			console.log ("FULL LIST:")
+			console.log(adv)
+			for (let i = 0; i < adv.length; i++) {
+				await Preference.deleteOne({ owner: req.user._id, _id: adv[i]._id})
 			}
+			res.send(adv)
+		}
+	} catch (err) {
+		console.log(err)
+	}
+})
+
+router.get("/get", auth, async (req, res) => {
+	try {
+		const adv = await Preference.find({ owner: req.user._id })
+		if (adv) {
+			console.log ("FULL LIST:")
+			console.log(adv)
+			res.send(adv)
+		}
 	} catch (err) {
 		console.log(err)
 	}

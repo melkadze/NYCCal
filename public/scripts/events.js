@@ -89,29 +89,83 @@ const generate = () => {
         let SignUpButtonID = title + ";;; " + time_location;
         let event = "";
         event += `<div class="Event">`;
-        event += `<h2>${title}</h3>`;
-        event += `<h3>Time and Location: ${time_location}</p>`;
-        event += `<h3>Summary: ${summary}</p>`;
-        event += `<h3>Price: ${price}</p>`;
+        event += `<h2>${title}</h2>`;
+        event += `<h3>Time and Location: ${time_location}</h3>`;
+        event += `<h3>Summary: ${summary}</h3>`;
+        event += `<h3>Price: ${price}</h3>`;
         event += `<button id="${SignUpButtonID}" class="SignUpButton"> Sign up</button>`;
         event += `<button class="ShareEventButton"> Share </button>`;        
         event += `<hr> </div>`;
+		console.log (event)
         return event;
     }
+	
+	//Event header
+	const createEventHeader = (date,first) => {
+		var dateFormat = date.getMonth()+1 + '/' + date.getDate() + '/' + date.getFullYear();
+		let header = "";
+		if(first != true){
+			header += `</div>`;
+		}
+		header += `<div>`;
+		header += `<h1> Event Listing: ${dateFormat} </h1>`;
+		return header;
+	}
+	
+	// nick's helper funct
+	const addEventIfAvailable = (date, response) => {
+		
+		let result
+		
+		// TODO: currently gets all events. we need to date-gate it
+		console.log("got response, or empty")
+		console.log(response)
+		
+		// add first event in the response
+		console.log(new Date(Date.parse(response[0].date)))
+		console.log(new Date(Date.parse(date)))
+		resDate = new Date(Date.parse(response[0].date))
+		if (date.getDate() === resDate.getDate()
+			&& date.getMonth() === resDate.getMonth()
+			&& date.getFullYear() === resDate.getFullYear()) {
+			console.log("ADDING!!!!!!!!!!!!!!!!!!")
+			result = addEvent(response[0].name, response[0].appointment, response[0].summary, response[0].price)
+		}
+		
+		if (response.length > 1) {
+			// if more than one, then use recursion
+			console.log(response.length)
+			recursionReturn = addEventIfAvailable(date, response.slice(1))
+			console.log('recur', recursionReturn)
+			console.log('result', result)
+			if (recursionReturn && !recursionReturn.includes`<div class=\"Event\"><h4>No events today!</h4><hr> </div>`) {
+				console.log("uh oh")
+				
+				if (result) {
+					result += recursionReturn
+				}
+				else {
+					result = recursionReturn
+				}
+			}
+		}
+		
+		// if no response, then exit
+		if (!result) {
+			console.log("...or not!")
+			let event = "";
+			event += `<div class="Event">`;
+			event += `<h4>No events today!</h4>`;
+			event += `<hr> </div>`;
+			console.log (event)
+			return event;
+		}
+		
+		console.log("returning ", result)
+		return result
+	}
 
-    //Event header
-    const createEventHeader = (date,first) => {
-        var dateFormat = date.getMonth()+1 + '/' + date.getDate() + '/' + date.getFullYear();
-        let header = "";
-        if(first != true){
-            header += `</div>`;
-        }
-        header += `<div>`;
-        header += `<h1> Event Listing: ${dateFormat} </h1>`;
-        return header;
-    }
-
-    const createEventList = (month, year) => {
+    const createEventList = (month, year, response) => {
         var listings = document.getElementById("Event Listings");
         listings.innerHTML = "";        
         var todaysDate = new Date();        
@@ -121,26 +175,47 @@ const generate = () => {
         var listingDate;
 
         if(month === todaysDate.getMonth() && year === todaysDate.getFullYear()){
-            listingDate = new Date();
+            //listingDate = new Date(todaysDate.getFullYear(), todaysDate.getMonth(), todaysDate.getDay());
+			 listingDate = new Date();
         }
         else {
             listingDate = new Date(year,month,1);
         }
         var lastDateOfMonth = new Date(listingDate.getFullYear(), listingDate.getMonth()+1, 0);
+		
         for(let i = listingDate.getDate(); i <= lastDateOfMonth.getDate(); i++){
             if(i === listingDate.getDate()){
                 listings.innerHTML += createEventHeader(listingDate,true);
-                listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
+				console.log("listing date ", listingDate)
+				listings.innerHTML += addEventIfAvailable(listingDate, response)
+                //listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
             }
             else{
                 var nextDate = new Date(listingDate.getFullYear(), listingDate.getMonth(), i);
                 listings.innerHTML += createEventHeader(nextDate,false);
-                listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
+				console.log("listing date2 ", nextDate)
+				listings.innerHTML += addEventIfAvailable(nextDate, response)
+                //listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
             }
         } 
         listings += `</div>`;       
     }
-    createEventList(month,year);
+	
+	const fetchEvents = (month, year) => {
+		fetch("/events/get", {
+			method: "GET",
+			headers: {
+				"Content-type": "application/json"
+			}
+		})
+		.then(response => response.json())
+		.then(response => {
+			console.log(response)
+			createEventList(month,year,response);
+		})
+	}
+	
+	fetchEvents(month,year)
     
 var SignUpButtons = document.querySelectorAll('.SignUpButton');
 SignUpButtons.forEach((button) =>{
