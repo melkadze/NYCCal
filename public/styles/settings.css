@@ -1,19 +1,19 @@
 .Header {
     background-color: rgb(0, 0, 0);
-    font-size:1.7rem;
+    font-size: 27px;
     padding-bottom: 3%;
     padding-top: 3%;
     color: white;
 }
 
 .Collapsible {
-    font-size:1.5rem;
+    font-size:25px;
     background-color: rgba(82, 82, 82, 0.945);
     color: white;
     padding: 2%;
     border: none;
     text-align: left;
-    width: 100%;
+    width: 370px;
     margin-bottom: 3%;
 }
 
@@ -29,15 +29,15 @@
 
 .PreferenceButton {
     padding: 1%;
-    font-size: 1.5rem;
-    width: 100%;
+    font-size: 25px;
+    width: 350px;
     margin-bottom: 2%;
     background-color: rgb(207, 207, 207);
 }
 
 .SubmitButton {
     padding: 1% 2%;
-    font-size: 1.5rem;
+    font-size: 30px;
     position: fixed;
     bottom: 0px;
     right: 0px; 

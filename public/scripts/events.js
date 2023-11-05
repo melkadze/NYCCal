@@ -80,7 +80,7 @@ const generate = () => {
                 date = new Date();
             }
             generate();
-            createEventList(month,year);
+            fetchEvents(month,year);
        });
     });
 
