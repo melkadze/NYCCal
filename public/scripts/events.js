@@ -122,14 +122,16 @@ const generate = () => {
 		console.log(response)
 		
 		// add first event in the response
-		console.log(new Date(Date.parse(response[0].date)))
-		console.log(new Date(Date.parse(date)))
-		resDate = new Date(Date.parse(response[0].date))
-		if (date.getDate() === resDate.getDate()
-			&& date.getMonth() === resDate.getMonth()
-			&& date.getFullYear() === resDate.getFullYear()) {
-			console.log("ADDING!!!!!!!!!!!!!!!!!!")
-			result = addEvent(response[0].name, response[0].appointment, response[0].summary, response[0].price)
+		if (response.length) {
+			console.log(new Date(Date.parse(response[0].date)))
+			console.log(new Date(Date.parse(date)))
+			resDate = new Date(Date.parse(response[0].date))
+			if (date.getDate() === resDate.getDate()
+				&& date.getMonth() === resDate.getMonth()
+				&& date.getFullYear() === resDate.getFullYear()) {
+				console.log("ADDING!!!!!!!!!!!!!!!!!!")
+				result = addEvent(response[0].name, response[0].appointment, response[0].summary, response[0].price)
+			}
 		}
 		
 		if (response.length > 1) {
