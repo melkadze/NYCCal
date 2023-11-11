@@ -142,6 +142,8 @@ const generate = () => {
 			//console.log(response.length)
             let recursionReturn ="";
 
+            //Creates the button when there are 3 events. HOWEVER, it does not know if there will be more events to add.
+            //I couldn't test it for days with only 3 events.
             if(counter === 3){
                 recursionReturn += `<button class="Collapsible">See more events</button>`;
                 recursionReturn += `<div class="Content">`;
