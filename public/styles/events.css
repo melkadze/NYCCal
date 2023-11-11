@@ -164,3 +164,20 @@ header .calendar-current-date {
     width: 100%;
     margin-bottom: 10px;
 }
+
+.Collapsible {
+    font-size:25px;
+    background-color: rgba(0, 0, 0);
+    color: white;
+    padding: 2%;
+    border: none;
+    text-align: left;
+    width: 370px;
+    margin-bottom: 3%;
+}
+
+.Content {
+    overflow: hidden;
+    display: none;
+    padding: 0px 10px;
+}
