@@ -94,7 +94,7 @@ const generate = () => {
         event += `<h3>Time and Location: ${time_location}</h3>`;
         event += `<h3>Summary: ${summary}</h3>`;
         event += `<h3>Price: ${price}</h3>`;
-        event += `<button id="${SignUpButtonID}" class="SignUpButton"> Sign up</button>`;
+        event += `<button id="${SignUpButtonID}" class="SignUpButton">Sign up</button>`;
         event += `<button id="${ShareButtonID}" class="ShareEventButton"> Share </button>`;        
         event += `<hr> </div>`;
 		//console.log (event)
@@ -114,7 +114,7 @@ const generate = () => {
 	}
 	
 	// nick's helper funct
-	const addEventIfAvailable = (date, response) => {
+	const addEventIfAvailable = (date, response, counter) => {
 		
 		let result
 		
@@ -124,6 +124,7 @@ const generate = () => {
 		
 		// add first event in the response
 		if (response.length) {
+            
 			//console.log(new Date(Date.parse(response[0].date)))
 			//console.log(new Date(Date.parse(date)))
 			resDate = new Date(Date.parse(response[0].date))
@@ -132,13 +133,21 @@ const generate = () => {
 				&& date.getFullYear() === resDate.getFullYear()) {
 				//console.log("ADDING!!!!!!!!!!!!!!!!!!")
 				result = addEvent(response[0].name, response[0].appointment, response[0].summary, response[0].price)
+                counter++;
 			}
 		}
 		
 		if (response.length > 1) {
 			// if more than one, then use recursion
 			//console.log(response.length)
-			recursionReturn = addEventIfAvailable(date, response.slice(1))
+            let recursionReturn ="";
+
+            if(counter === 3){
+                recursionReturn += `<button class="Collapsible">See more events</button>`;
+                recursionReturn += `<div class="Content">`;
+            }
+
+			recursionReturn += addEventIfAvailable(date, response.slice(1),counter)
 			//console.log('recur', recursionReturn)
 			//console.log('result', result)
 			if (recursionReturn && !recursionReturn.includes`<div class=\"Event\"><h4>No events today!</h4><hr> </div>`) {
@@ -152,6 +161,10 @@ const generate = () => {
 				}
 			}
 		}
+
+        if(counter >3){
+            result += `</div>`;
+        }
 		
 		// if no response, then exit
 		if (!result) {
@@ -197,7 +210,7 @@ const generate = () => {
                 var nextDate = new Date(listingDate.getFullYear(), listingDate.getMonth(), i);
                 listings.innerHTML += createEventHeader(nextDate,false);
 				//console.log("listing date2 ", nextDate)
-				listings.innerHTML += addEventIfAvailable(nextDate, response)
+				listings.innerHTML += addEventIfAvailable(nextDate, response,0);
                 //listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
             }
         } 
@@ -231,6 +244,21 @@ const generate = () => {
                 console.log(string);
             })
         });
+
+        //More Events Button
+        var coll = document.getElementsByClassName("Collapsible");
+        for(var i = 0; i<coll.length;i++){
+            coll[i].addEventListener("click", function(){
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if(content.style.display === 'block'){
+                    content.style.display = 'none';
+                }
+                else {
+                    content.style.display = "block";
+                }
+            });
+        }
 })
     }
 	
