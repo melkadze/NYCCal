@@ -145,6 +145,7 @@ const generate = () => {
             //Creates the button when there are 3 events. HOWEVER, it does not know if there will be more events to add.
             //I couldn't test it for days with only 3 events.
             if(counter === 3){
+                //recursionReturn += `</div>`;
                 recursionReturn += `<button class="Collapsible">See more events</button>`;
                 recursionReturn += `<div class="Content">`;
             }
@@ -164,9 +165,6 @@ const generate = () => {
 			}
 		}
 
-        if(counter >3){
-            result += `</div>`;
-        }
 		
 		// if no response, then exit
 		if (!result) {
@@ -179,7 +177,7 @@ const generate = () => {
 			return event;
 		}
 		
-		console.log("returning ", result)
+		//console.log("returning ", result)
 		return result
 	}
 
@@ -233,7 +231,7 @@ const generate = () => {
                 this.style.background = "blue";
                 this.innerHTML = "Sign up";
             }
-        });
+        });})
 
         //Share Button
         var ShareButtons = document.querySelectorAll(".ShareEventButton");
@@ -248,10 +246,9 @@ const generate = () => {
         });
 
         //More Events Button
-        var coll = document.getElementsByClassName("Collapsible");
-        for(var i = 0; i<coll.length;i++){
-            coll[i].addEventListener("click", function(){
-                this.classList.toggle("active");
+        var colls = document.querySelectorAll(".Collapsible");
+        colls.forEach((coll)=>{
+            coll.addEventListener("click", function(){
                 var content = this.nextElementSibling;
                 if(content.style.display === 'block'){
                     content.style.display = 'none';
@@ -262,8 +259,7 @@ const generate = () => {
                     this.style.background = "green";
                 }
             });
-        }
-})
+        });
     }
 	
 	const fetchEvents = (month, year) => {
