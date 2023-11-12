@@ -167,7 +167,7 @@ header .calendar-current-date {
 
 .Collapsible {
     font-size:25px;
-    background-color: rgba(0, 0, 0);
+    background: black;
     color: white;
     padding: 2%;
     border: none;
