@@ -276,9 +276,6 @@ const generate = () => {
 		})
 	}
 	
-	
-    
-
 fetchEvents(month,year);
 }
 
