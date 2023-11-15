@@ -1,0 +1,69 @@
+.Menu {
+    list-style-type: none;
+    margin: 10px;
+    padding: 10px;
+    overflow: hidden;
+    background-color: blue;
+}
+
+.Menu li {
+    float: left;
+}
+
+.Menu li a {
+  color: white;
+  text-align: center;
+  padding: 10px 12px;
+  text-decoration: none;
+}
+
+.Menu li a:hover {
+    background-color: #111;
+}
+
+.ProfilePic {
+    height: 100px; 
+    width: 100px;   
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.Message {
+    text-align: center;
+}
+
+.Attending {
+    font-size: 24px;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    color: rgb(0, 0, 0);
+}
+
+.Event {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.ShareEventButton {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    font-size:medium;
+    text-align: center;
+    border: none;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.SignUpButton {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    font-size:medium;
+    text-align: center;
+    border: none;
+    width: 100%;
+    margin-bottom: 10px;
+}
