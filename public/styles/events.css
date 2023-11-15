@@ -113,7 +113,7 @@ header .calendar-current-date {
     color: #aaa;
 }
  
-.calendar-dates li.active {
+.calendar-dates li.active a {
     color: #fff;
 }
  
@@ -130,7 +130,7 @@ header .calendar-current-date {
 }
  
 .calendar-dates li.active::before {
-    background: blue;
+    background: purple;
 }
  
 .calendar-dates li:not(.active):hover::before {
@@ -180,4 +180,37 @@ header .calendar-current-date {
     overflow: hidden;
     display: none;
     padding: 0px 10px;
+}
+
+a{
+    display: inline-block;
+    position: relative;
+    margin: -2em;
+    padding: 1em;
+}
+
+a:link{
+    color:black;
+    text-decoration: none;
+}
+
+a:visited{
+    color: black;
+    text-decoration: none;
+}
+
+.one::before{
+    background-color: lightsalmon;
+}
+
+.two::before{
+    background-color: lightcoral;
+}
+
+.three::before{
+    background-color: rgb(221, 67, 67);
+}
+
+.threePlus::before{
+    background-color: red;
 }

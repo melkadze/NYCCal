@@ -48,7 +48,7 @@ const generate = () => {
         if (i===date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()){
             isToday = "active";
         }
-        lit += `<li class="${isToday}"> ${i}</li>`;
+        lit += `<li id="Calendar${i}" class="${isToday}"> ${i}</li>`;
     }
 
     //Add next month dates
@@ -108,7 +108,7 @@ const generate = () => {
 		if(first != true){
 			header += `</div>`;
 		}
-		header += `<div>`;
+		header += `<div id="Listing${date.getDate()}">`;
 		header += `<h1> Event Listing: ${dateFormat} </h1>`;
 		return header;
 	}
@@ -116,7 +116,7 @@ const generate = () => {
 	// nick's helper funct
 	const addEventIfAvailable = (date, response, counter) => {
 		
-		let result
+		let result =""
 		
 		// TODO: currently gets all events. we need to date-gate it
 		//console.log("got response, or empty")
@@ -131,9 +131,26 @@ const generate = () => {
 			if (date.getDate() === resDate.getDate()
 				&& date.getMonth() === resDate.getMonth()
 				&& date.getFullYear() === resDate.getFullYear()) {
-				//console.log("ADDING!!!!!!!!!!!!!!!!!!")
-				result = addEvent(response[0].name, response[0].appointment, response[0].summary, response[0].price)
+				//console.log("ADDING!!!!!!!!!!!!!!!!!!")            
+                if(counter === 3){
+                result += `<button class="Collapsible">See more events</button>`;
+                result += `<div class="Content">`;
+                }
+				result += addEvent(response[0].name, response[0].appointment, response[0].summary, response[0].price)
                 counter++;
+                var calDate = document.getElementById("Calendar" + date.getDate());
+                if(counter ===1){
+                    calDate.className = "one";
+                }
+                else if(counter ===2){
+                    calDate.className = "two";
+                }
+                else if(counter ===3){
+                    calDate.className = "three";
+                }
+                else if(counter >3){
+                    calDate.className = "threePlus";
+                }
 			}
 		}
 		
@@ -144,13 +161,9 @@ const generate = () => {
 
             //Creates the button when there are 3 events. HOWEVER, it does not know if there will be more events to add.
             //I couldn't test it for days with only 3 events.
-            if(counter === 3){
-                //recursionReturn += `</div>`;
-                recursionReturn += `<button class="Collapsible">See more events</button>`;
-                recursionReturn += `<div class="Content">`;
-            }
 
-			recursionReturn += addEventIfAvailable(date, response.slice(1),counter)
+
+			recursionReturn = addEventIfAvailable(date, response.slice(1),counter)
 			//console.log('recur', recursionReturn)
 			//console.log('result', result)
 			if (recursionReturn && !recursionReturn.includes`<div class=\"Event\"><h4>No events today!</h4><hr> </div>`) {
@@ -165,7 +178,6 @@ const generate = () => {
 			}
 		}
 
-		
 		// if no response, then exit
 		if (!result) {
 			//console.log("...or not!")
@@ -203,7 +215,7 @@ const generate = () => {
             if(i === listingDate.getDate()){
                 listings.innerHTML += createEventHeader(listingDate,true);
 				//console.log("listing date ", listingDate)
-				listings.innerHTML += addEventIfAvailable(listingDate, response)
+				listings.innerHTML += addEventIfAvailable(listingDate, response,0);
                 //listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
             }
             else{
@@ -260,6 +272,22 @@ const generate = () => {
                 }
             });
         });
+
+        //Clicking calendar functionality
+        for(let i =1; i<32; i++){
+            //get calendar date
+            var calDate = document.getElementById("Calendar" + i);
+            //console.log(calDate);
+            if(calDate != null){
+                //get listing to link
+                var listing = document.getElementById("Listing" + i);
+                //console.log(listing);
+                if(listing != null){
+                    var link = "<a href='#" + listing.id +"'>" + i + "</a>";
+                    calDate.innerHTML = link;
+                }
+            }
+        }
     }
 	
 	const fetchEvents = (month, year) => {
