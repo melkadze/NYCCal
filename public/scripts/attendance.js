@@ -4,7 +4,7 @@ window.onload = function (){
 
 
     //Function to add an event
-    const addEvent = (title, month, day, year, time_location, summary, price) => {
+    const addEvent = (title, month, day, year, time_location, summary, price, status) => {
         let SignUpButtonID = title + ";:; " + time_location;
         let ShareButtonID = title + ";:; " + time_location + ";:; " + summary + ";:; " + price;
         let event = "";
@@ -14,8 +14,12 @@ window.onload = function (){
         event += `<h3>Time and Location: ${time_location}</h3>`;
         event += `<h3>Summary: ${summary}</h3>`;
         event += `<h3>Price: ${price}</h3>`;
-        event += `<button id="${SignUpButtonID}" class="SignUpButton">Sign up</button>`;
-        event += `<button id="${ShareButtonID}" class="ShareEventButton"> Share </button>`;        
+		if (status) {
+			event += `<button id="${SignUpButtonID}" class="SignUpButton">Signed up</button>`;
+		} else {
+			event += `<button id="${SignUpButtonID}" class="SignUpButton">Sign up</button>`;
+		}
+        event += `<button id="${ShareButtonID}" class="ShareEventButton"> Share </button>`;
         event += `<hr> </div>`;
 		//console.log (event)
         return event;
@@ -25,8 +29,9 @@ window.onload = function (){
         var listing = document.getElementById("EventList"); //gets list id
 
         //template to add event in the list
-        listing.innerHTML += addEvent("Title", 11,15,2023,"Some place | 19:00", "Some summary", "Free");
-        listing.innerHTML += addEvent("Title", 12,10,2023,"Some place | 20:00", "Some summary", "Free");
+		/// what are these for? testing? I added a var to them at the end to keep from crashing -nick
+        listing.innerHTML += addEvent("Title", 11,15,2023,"Some place | 19:00", "Some summary", "Free", false);
+        listing.innerHTML += addEvent("Title", 12,10,2023,"Some place | 20:00", "Some summary", "Free", false);
 
         //Sign up Button
         var SignUpButtons = document.querySelectorAll(".SignUpButton");

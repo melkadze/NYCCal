@@ -85,7 +85,7 @@ const generate = () => {
     });
 
     //Function to add an event
-    const addEvent = (title, time_location, summary, price) => {
+    const addEvent = (title, time_location, summary, price, status, id) => {
         let SignUpButtonID = title + ";:; " + time_location;
         let ShareButtonID = title + ";:; " + time_location + ";:; " + summary + ";:; " + price;
         let event = "";
@@ -94,8 +94,12 @@ const generate = () => {
         event += `<h3>Time and Location: ${time_location}</h3>`;
         event += `<h3>Summary: ${summary}</h3>`;
         event += `<h3>Price: ${price}</h3>`;
-        event += `<button id="${SignUpButtonID}" class="SignUpButton">Sign up</button>`;
-        event += `<button id="${ShareButtonID}" class="ShareEventButton"> Share </button>`;        
+		if (status) {
+			event += `<button id="${SignUpButtonID}" eventid="${id}" class="SignUpButton SignedUpButton">Signed up</button>`;
+		} else {
+			event += `<button id="${SignUpButtonID}" eventid="${id}" class="SignUpButton">Sign up</button>`;
+		}
+        event += `<button id="${ShareButtonID}" class="ShareEventButton"> Share </button>`;
         event += `<hr> </div>`;
 		//console.log (event)
         return event;
@@ -136,7 +140,8 @@ const generate = () => {
                 result += `<button class="Collapsible">See more events</button>`;
                 result += `<div class="Content">`;
                 }
-				result += addEvent(response[0].name, response[0].appointment, response[0].summary, response[0].price)
+				console.log(response[0])
+				result += addEvent(response[0].name, response[0].appointment, response[0].summary, response[0].price, response[0].attending, response[0]._id)
                 counter++;
                 var calDate = document.getElementById("Calendar" + date.getDate());
                 if(counter ===1){
@@ -235,13 +240,24 @@ const generate = () => {
             let arr = button.id.split(";:; ");
             button.addEventListener("click",function(){
             if(this.innerHTML === "Sign up"){
-                this.style.background = "green";
-                this.innerHTML = "Signed up";
-                //console.log(arr);
+				/// upload add
+				fetch(`/attendance/add/${this.getAttribute("eventid")}`,
+				{method: "GET"})
+				
+					this.style.background = "green";
+					this.innerHTML = "Signed up";
             }
             else {
-                this.style.background = "blue";
-                this.innerHTML = "Sign up";
+				// upload remove
+				fetch(`/attendance/delete/${this.getAttribute("eventid")}`,
+					  {method: "GET"})
+				
+				if (this.classList.contains("SignedUpButton")) {
+					this.classList.remove("SignedUpButton")
+				}
+				
+					this.style.background = "blue";
+					this.innerHTML = "Sign up";
             }
         });})
 

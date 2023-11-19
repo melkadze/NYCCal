@@ -5,7 +5,8 @@ const attendanceSchema = new mongoose.Schema(
 		// event being attended
 		event: {
 			type: mongoose.Schema.Types.ObjectId,
-			required: true
+			required: true,
+			unique: true
 		},
 		// are they attending? true/false
 		status: {

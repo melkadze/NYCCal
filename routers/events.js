@@ -2,6 +2,7 @@ const router = require("express").Router()
 const User = require("../models/user")
 const Event = require("../models/event")
 const Preference = require("../models/preference")
+const Attendance = require("../models/attendance")
 const auth = require("../scripts/auth")
 
 router.get("/", auth, (req, res) => {
@@ -40,9 +41,11 @@ router.get("/get", auth, async (req, res) => {
 	try {
 		const prefs = await Preference.find({ owner: req.user._id })
 		const allEvents = await Event.find({})
+		const attend = await Attendance.find({ owner: req.user._id })
 		
-		console.log(prefs)
-		console.log(allEvents)
+		//console.log(prefs)
+		//console.log(allEvents)
+		console.log(attend)
 		
 		let userEvents = []
 		
@@ -59,7 +62,20 @@ router.get("/get", auth, async (req, res) => {
 				}
 				
 				if (!skipEvent) {
-					userEvents.push(allEvents[i])
+					toPush = { ...allEvents[i]}
+					attendStatus = false
+					
+					for (let k = 0; k < attend.length; k++) {
+						console.log("----", attend[k].event, "-", allEvents[i]._id, "---")
+						if (attend[k].event.equals(allEvents[i]._id)) {
+							console.log("MATCH")
+							attendStatus = attend[k].status
+						}
+					}
+					
+					toPush["_doc"]["attending"] = attendStatus
+					
+					userEvents.push(toPush["_doc"])
 				}
 			}
 		}

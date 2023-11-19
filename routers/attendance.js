@@ -4,11 +4,12 @@ const Attendance = require("../models/attendance")
 const auth = require("../scripts/auth")
 
 //make a new attendance
-router.post("/add", auth, async (req, res) => {
+router.get("/add/:id", auth, async (req, res) => {
+	console.log("WE GOT HERE AT LEAST")
 	const attendance = new Attendance ({
-		...req.body,
-	status: true,
-	owner: req.user._id
+		event: req.params.id,
+		status: true,
+		owner: req.user._id
 	})
 	try{
 		await attendance.save()
@@ -19,15 +20,16 @@ router.post("/add", auth, async (req, res) => {
 	}
 })
 
-// delete an attendence
-router.post("/delete:id", auth, async (req, res) => {
+// delete an attendance
+router.get("/delete/:id", auth, async (req, res) => {
 	try {
+		console.log("WE GOT HERE AT LEAST AND DELETE")
 		const adv = await Attendance.find({ owner: req.user._id, event: req.params.id })
 		if (adv) {
 			console.log ("FULL LIST:")
 			console.log(adv)
 			for (let i = 0; i < adv.length; i++) {
-				await Preference.deleteOne({ owner: req.user._id, _id: adv[i]._id})
+				await Attendance.deleteOne({ owner: req.user._id, _id: adv[i]._id})
 			}
 			res.send(adv)
 		}
@@ -36,6 +38,7 @@ router.post("/delete:id", auth, async (req, res) => {
 	}
 })
 
+// get full attendence status
 router.get("/get", auth, async (req, res) => {
 	try {
 		const adv = await Attendance.find({ owner: req.user._id })
