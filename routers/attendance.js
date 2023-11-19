@@ -3,18 +3,19 @@ const User = require("../models/user")
 const Attendance = require("../models/attendance")
 const auth = require("../scripts/auth")
 
-//make a new attendance
+// add a new attendance
 router.get("/add/:id", auth, async (req, res) => {
-	console.log("WE GOT HERE AT LEAST")
+	// create the attendance obj we'll upload
 	const attendance = new Attendance ({
 		event: req.params.id,
 		status: true,
 		owner: req.user._id
 	})
+	
+	// save the attendance and send it to confirm
 	try{
 		await attendance.save()
 		res.send(attendance)
-		console.log(`Sent ATTENDANCE: ${attendance}`)
 	} catch(err) {
 		console.log(err)
 	}
@@ -23,12 +24,13 @@ router.get("/add/:id", auth, async (req, res) => {
 // delete an attendance
 router.get("/delete/:id", auth, async (req, res) => {
 	try {
-		console.log("WE GOT HERE AT LEAST AND DELETE")
+		// search for attendance records for the given event for the signed in user
 		const adv = await Attendance.find({ owner: req.user._id, event: req.params.id })
+		
+		// if one is found, delete it and send it to confirm
 		if (adv) {
-			console.log ("FULL LIST:")
-			console.log(adv)
 			for (let i = 0; i < adv.length; i++) {
+				// it is impossible to have more than one result, but this is safer
 				await Attendance.deleteOne({ owner: req.user._id, _id: adv[i]._id})
 			}
 			res.send(adv)
@@ -38,7 +40,7 @@ router.get("/delete/:id", auth, async (req, res) => {
 	}
 })
 
-// get full attendence status
+// get full attendence status (unused)
 router.get("/get", auth, async (req, res) => {
 	try {
 		const adv = await Attendance.find({ owner: req.user._id })
