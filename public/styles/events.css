@@ -186,7 +186,7 @@ header .calendar-current-date {
     padding: 0px 10px;
 }
 
-a{
+.Calendar-Click{
     display: inline-block;
     position: relative;
     margin: -2em;

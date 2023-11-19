@@ -299,7 +299,7 @@ const generate = () => {
                 var listing = document.getElementById("Listing" + i);
                 //console.log(listing);
                 if(listing != null){
-                    var link = "<a href='#" + listing.id +"'>" + i + "</a>";
+                    var link = "<a class='Calendar-Click' href='#" + listing.id +"'>" + i + "</a>";
                     calDate.innerHTML = link;
                 }
             }
