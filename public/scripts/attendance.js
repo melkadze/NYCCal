@@ -5,8 +5,6 @@ window.onload = function (){
 
     //Function to add an event
 	const addEvent = (title, time_location, summary, price, status, id) => {
-		let SignUpButtonID = title + ";:; " + time_location;
-		let ShareButtonID = title + ";:; " + time_location + ";:; " + summary + ";:; " + price;
 		let event = "";
 		event += `<div class="Event">`;
 		event += `<h2>${title}</h2>`;
@@ -14,11 +12,11 @@ window.onload = function (){
 		event += `<h3>Summary: ${summary}</h3>`;
 		event += `<h3>Price: ${price}</h3>`;
 		if (status) {
-			event += `<button id="${SignUpButtonID}" eventid="${id}" class="SignUpButton SignedUpButton">Signed up</button>`;
+			event += `<button eventid="${id}" class="SignUpButton SignedUpButton">Signed up</button>`;
 		} else {
-			event += `<button id="${SignUpButtonID}" eventid="${id}" class="SignUpButton">Sign up</button>`;
+			event += `<button eventid="${id}" class="SignUpButton">Sign up</button>`;
 		}
-		event += `<button id="${ShareButtonID}" eventid="${id}" class="ShareEventButton"> Share </button>`;
+		event += `<button title="${title}" timeLoc="${time_location}" summary="${summary}" price="${price}" "eventid="${id}" class="ShareEventButton"> Share </button>`;
 		event += `<hr> </div>`;
 		//console.log (event)
 		return event;
@@ -42,7 +40,6 @@ window.onload = function (){
 		var SignUpButtons = document.querySelectorAll(".SignUpButton");
 		SignUpButtons.forEach((button) =>{
 			//console.log("THIS IS BUTTON" + button);
-			let arr = button.id.split(";:; ");
 			button.addEventListener("click",function(){
 				if(this.innerHTML === "Sign up"){
 					/// upload add
@@ -69,9 +66,9 @@ window.onload = function (){
         //Share Button
         var ShareButtons = document.querySelectorAll(".ShareEventButton");
         ShareButtons.forEach((button)=>{
-            let arr = button.id.split(";:; ");
             button.addEventListener("click",function(){
-                let string = arr[0] + "\n" + arr[1] + "\n" + arr[2] + "\n" + arr[3] + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
+                let string = this.getAttribute("title") + "\n" + this.getAttribute("timeLoc") + "\n" + this.getAttribute("summary")
+							 + "\n" + this.getAttribute("price") + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
                 navigator.clipboard.writeText(string);
                 //.then(() => alert("Copied"))
                 console.log(string);
