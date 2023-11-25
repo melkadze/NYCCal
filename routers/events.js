@@ -102,4 +102,41 @@ router.get("/get", auth, async (req, res) => {
 	}
 })
 
+// retrieves attending events
+router.get("/get/attending", auth, async (req, res) => {
+	try {
+		const allEvents = await Event.find({})
+		const attend = await Attendance.find({ owner: req.user._id })
+		
+		let userEvents = []
+		
+		if (allEvents) {
+			for (let i = 0; i < allEvents.length; i++) {
+				toPush = { ...allEvents[i]}
+				attendStatus = false
+				
+				for (let k = 0; k < attend.length; k++) {
+					console.log("----", attend[k].event, "-", allEvents[i]._id, "---")
+					if (attend[k].event.equals(allEvents[i]._id)) {
+						console.log("MATCH")
+						attendStatus = attend[k].status
+					}
+				}
+				
+				toPush["_doc"]["attending"] = attendStatus
+				
+				if (attendStatus) {
+					userEvents.push(toPush["_doc"])
+				}
+			}
+		}
+		
+		console.log("sent events:")
+		console.log(userEvents)
+		res.json(userEvents)
+	} catch (err) {
+		console.log(err)
+	}
+})
+
 module.exports = router

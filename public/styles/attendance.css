@@ -67,3 +67,7 @@
     width: 100%;
     margin-bottom: 10px;
 }
+
+.SignedUpButton {
+	background-color: green !important;
+}

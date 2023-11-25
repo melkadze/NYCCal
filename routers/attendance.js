@@ -3,6 +3,14 @@ const User = require("../models/user")
 const Attendance = require("../models/attendance")
 const auth = require("../scripts/auth")
 
+router.get("/", auth, (req, res) => {
+	try{
+		res.render("attendance", {user: req.user})
+	} catch(err) {
+		console.log(err)
+	}
+})
+
 // add a new attendance
 router.get("/add/:id", auth, async (req, res) => {
 	// create the attendance obj we'll upload

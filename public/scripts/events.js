@@ -99,7 +99,7 @@ const generate = () => {
 		} else {
 			event += `<button id="${SignUpButtonID}" eventid="${id}" class="SignUpButton">Sign up</button>`;
 		}
-        event += `<button id="${ShareButtonID}" class="ShareEventButton"> Share </button>`;
+        event += `<button id="${ShareButtonID}" eventid="${id}" class="ShareEventButton"> Share </button>`;
         event += `<hr> </div>`;
 		//console.log (event)
         return event;
@@ -262,16 +262,16 @@ const generate = () => {
         });})
 
         //Share Button
-        var ShareButtons = document.querySelectorAll(".ShareEventButton");
-        ShareButtons.forEach((button)=>{
-            let arr = button.id.split(";:; ");
-            button.addEventListener("click",function(){
-                let string = arr[0] + "\n" + arr[1] + "\n" + arr[2] + "\n" + arr[3];
-                navigator.clipboard.writeText(string);
-                //.then(() => alert("Copied"))
-                console.log(string);
-            })
-        });
+		var ShareButtons = document.querySelectorAll(".ShareEventButton");
+		ShareButtons.forEach((button)=>{
+			let arr = button.id.split(";:; ");
+			button.addEventListener("click",function(){
+				let string = arr[0] + "\n" + arr[1] + "\n" + arr[2] + "\n" + arr[3] + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
+				navigator.clipboard.writeText(string);
+				//.then(() => alert("Copied"))
+				console.log(string);
+			})
+		});
 
         //More Events Button
         var colls = document.querySelectorAll(".Collapsible");

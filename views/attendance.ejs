@@ -9,8 +9,8 @@
           <link rel="stylesheet"
           href=
   "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-    <link rel="stylesheet" href="../public/styles/attendance.css">
-    <script src="../public/scripts/attendance.js"> </script>
+    <link rel="stylesheet" href="../styles/attendance.css">
+    <script src="../scripts/attendance.js"> </script>
 </head>
 
 <body>
@@ -24,8 +24,8 @@
     </div>
 
     <div>
-        <img class="ProfilePic" src="../public/assets/google.svg">
-        <h2 id="Message" class="Message"> Hello, </h2>
+        <img class="ProfilePic" src="<%= user.thumbnailURL %>">
+        <h2 id="Message" class="Message"> Hello, <%= user.username %></h2>
     </div>
     <h1 class="Attending">Events Attending:</h1>
     <hr>
