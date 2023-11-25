@@ -13,6 +13,20 @@ router.get("/", auth, (req, res) => {
 	}
 })
 
+
+router.get("/single/:id", auth, async (req, res) => {
+	try{
+		const adv = await Event.find({ _id: req.params.id })
+		
+		res.render("singleevent", {event: adv[0]})
+	} catch(err) {
+		console.log(err)
+		return
+		// TODO: REMOVE ALL BELOW FROM ALL FILES
+		functions.error(res, 500, err)
+	}
+})
+
 router.get("/add", auth, (req, res) => {
 	try{
 		res.render("addEvent")
