@@ -1,0 +1,70 @@
+body{
+    margin:0;
+}
+	.Menu {
+    list-style-type: none;
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding: 10px;
+    overflow: hidden;
+    background-color: blue;
+    position: fixed;
+    top:0;
+    width: 100%;
+    z-index: 9999;
+	}
+
+		.Menu li {
+    		float: left;
+		}
+
+		.Menu li a {
+  			color: white;
+  			text-align: center;
+ 			padding: 10px 12px;
+  			text-decoration: none;
+		}
+
+		.Menu li a:hover {
+    		background-color: #111;
+		}
+		
+		.Info{
+			margin: 10px;
+			padding-top: 10px;
+		}
+		.ShareEventButton {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    font-size:medium;
+    text-align: center;
+    border: none;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.SignUpButton {
+	padding: 10px 20px;
+	background-color: blue;
+	color: white;
+	font-weight: bold;
+	font-size:medium;
+	text-align: center;
+	border: none;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.SignedUpButton {
+	background-color: green !important;
+}
+
+h2{
+    font-weight: normal;
+}
+
+h3{
+    font-weight: normal;
+}

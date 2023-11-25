@@ -14,16 +14,16 @@
 </head>
 
 <body>
-    <div>
+    <div style="height: 40px;">
         <ul class="Menu">
             <li><a href="events">Events</a></li>
             <li><a href="settings">Settings</a></li>
             <li><a href="#">Attendance</a></li>
-            <li style="float: right;"><a href="/auth/logout">Logout</a></li>
+            <li style="float: right;padding-right: 10px;"><a href="/auth/logout">Logout</a></li>
         </ul>
     </div>
 
-    <div>
+    <div class="profile-pic">
         <img class="ProfilePic" src="<%= user.thumbnailURL %>">
         <h2 id="Message" class="Message"> Hello, <%= user.username %></h2>
     </div>

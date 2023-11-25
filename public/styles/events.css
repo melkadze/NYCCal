@@ -1,9 +1,17 @@
+body{
+    margin:0;
+}
 .Menu {
     list-style-type: none;
-    margin: 10px;
+    margin-top: 0;
+    margin-bottom: 10px;
     padding: 10px;
     overflow: hidden;
     background-color: blue;
+    position: fixed;
+    top:0;
+    width: 100%;
+    z-index: 9999;
 }
 
 .Menu li {
@@ -176,8 +184,9 @@ header .calendar-current-date {
     padding: 2%;
     border: none;
     text-align: left;
-    width: 370px;
+    width: 100%;
     margin-bottom: 3%;
+    text-align: center;
 }
 
 .Content {
