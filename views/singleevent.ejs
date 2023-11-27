@@ -27,7 +27,19 @@
 	<h3 ><b>Contact Info: </b><%= event.contact %></h3>
 	<h3 id="Price"><%= event.price %></h3>
 	<h3 ><b>Accessibility </b>(if applicable): <%= event.accessibility %></h3>
-	<button id="SignUp" eventid="" class="SignUpButton SignedUpButton">Signed up</button> <!---need eventid-->
-	<button id="Share" eventid="" class="ShareEventButton"> Share </button> <!---need eventid-->
+	
+	
+	
+	<% if(active) { %>
+			<button id="SignUp" eventid="<%= event._id %>" class="SignUpButton SignedUpButton">Signed up</button>
+	<% 	} else { %>
+			<button id="SignUp" eventid="<%= event._id %>" class="SignUpButton">Sign up</button>
+	<%	} %>
+	
+	
+	<!-- <button id="SignUp" eventid="<%= event._id %>" class="SignUpButton SignedUpButton">Signed up</button>-->
+	
+	
+	<button id="Share" eventid="<%= event._id %>" class="ShareEventButton"> Share </button>
 	</div>
 </body>

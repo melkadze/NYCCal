@@ -29,6 +29,7 @@ window.onload = function () {
             }
             else {
                 // upload remove
+				console.log("removing")
                 fetch(`/attendance/delete/${this.getAttribute("eventid")}`,
                       {method: "GET"})
                 

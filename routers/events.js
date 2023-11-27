@@ -17,8 +17,17 @@ router.get("/", auth, (req, res) => {
 router.get("/single/:id", auth, async (req, res) => {
 	try{
 		const adv = await Event.find({ _id: req.params.id })
+		const attend = await Attendance.find({ owner: req.user._id, event: req.params.id })
 		
-		res.render("singleevent", {event: adv[0]})
+		let attendStatus = false
+		
+		if (attend.length && attend[0].status) {
+				attendStatus = true
+			console.log(attendStatus)
+		}
+		console.log("here: ", attend)
+		
+		res.render("singleevent", {event: adv[0], active: attendStatus})
 	} catch(err) {
 		console.log(err)
 		return
