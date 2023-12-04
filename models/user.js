@@ -2,26 +2,29 @@ const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema(
 	{
-		//full name
+		// full name
 		username: {
 			type: String
 		},
-		// unique ID
+		// unique ID (used for authentication)
 		googleID: {
 			type: String,
-			unique: true
+			unique: true,
+			required: true
 		},
+		// Google email
 		email: {
 			type: String,
 			unique: true
 		},
-		//profile photo
+		// Profile photo URL
 		thumbnailURL: {
-			type: String
+			type: String,
+			required: true
 		}
 	},
 	{
-		// show when account was created and accessed
+		// show when the db item was created and accessed
 		timestamps: true
 	}
 )

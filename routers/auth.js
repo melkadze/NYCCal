@@ -1,38 +1,43 @@
+// Router for auth (example.com/auth/###)
+// Handles all authentication
 const router = require("express").Router()
 const passport = require("passport")
-const Preference = require("../models/preference")
+const Preference = require("../models/preference") // to check preferences
 
-//login
+// Login
 router.get("/login", (req, res) => {
 	try {
-		res.render("login", {user: req.user})
+		// Render the login page
+		res.render("login")
 	} catch (err) {
-		functions.error(res, 500, err)
+		console.log(err)
 	}
 })
 
-//logout
+// Logout
 router.get("/logout", (req, res) => {
 	try{
+		// Log out and redirect to home page
 		req.logout()
 		res.redirect("/")
 	} catch(err) {
-		functions.error(res, 500, err)
+		console.log(err)
 	}
 })
 
-//auth with google
+// Authenticate with Google
 router.get("/google", passport.authenticate("google", {
+	// only request basic profile information and email address
 	scope: ["profile", "email"]
 }))
 
-//callback for redirecting
+// Callback for redirecting (post authentication)
 router.get("/google/redirect", passport.authenticate("google"), async (req, res) => {
-	// res.redirect("/settings")
-
 	try {
+		// Get the users preferences
 		const prefs = await Preference.find({ owner: req.user._id })
-		console.log(prefs)
+		
+		// If any exist, go to events, otherwise direct user to select some
 		if (prefs.length > 0) {
 			res.redirect("/events")
 		} else {

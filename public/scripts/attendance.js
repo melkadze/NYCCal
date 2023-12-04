@@ -1,8 +1,5 @@
+// Run as soon as the page is ready
 window.onload = function (){
-
-    let welcomeMessage = document.getElementById("Message"); //needs the user's name to add
-
-
     //Function to add an event
 	const addEvent = (title, time_location, summary, price, status, id, attend_number) => {
 		let link = "/events/single/" + id;
@@ -20,28 +17,18 @@ window.onload = function (){
 		}
 		event += `<button title="${title}" timeLoc="${time_location}" summary="${summary}" price="${price}" "eventid="${id}" class="ShareEventButton"> Share </button>`;
 		event += `<hr> </div>`;
-		//console.log (event)
 		return event;
 	}
     
     const createEventList = (response) =>{
-		console.log("connected")
         var listing = document.getElementById("EventList"); //gets list id
-
-        //template to add event in the list
-		/// what are these for? testing? I added a var to them at the end to keep from crashing -nick
-        //listing.innerHTML += addEvent("Title", 11,15,2023,"Some place | 19:00", "Some summary", "Free", false);
-        //listing.innerHTML += addEvent("Title", 12,10,2023,"Some place | 20:00", "Some summary", "Free", false);
 		for (let i = 0; i < response.length; i++) {
 			listing.innerHTML += addEvent(response[i].name, response[i].appointment, response[i].summary, response[i].price, response[i].attending, response[i]._id, response[0].attendNumber)
 		}
 
-		
-
         //Sign up Button
 		var SignUpButtons = document.querySelectorAll(".SignUpButton");
 		SignUpButtons.forEach((button) =>{
-			//console.log("THIS IS BUTTON" + button);
 			button.addEventListener("click",function(){
 				if(this.innerHTML === "Sign up"){
 					/// upload add
@@ -72,8 +59,8 @@ window.onload = function (){
                 let string = this.getAttribute("title") + "\n" + this.getAttribute("timeLoc") + "\n" + this.getAttribute("summary")
 							 + "\n" + this.getAttribute("price") + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
                 navigator.clipboard.writeText(string);
-                //.then(() => alert("Copied"))
-                console.log(string);
+				this.style.background = "green";
+				this.innerHTML = "Copied to clipboard!"
             })
         });
 
@@ -103,12 +90,9 @@ window.onload = function (){
 		})
 		.then(response => response.json())
 		.then(response => {
-			//console.log(response)
 			createEventList(response);
 		})
 	}
 
-
 	fetchEvents();
-	console.log("connected")
 }

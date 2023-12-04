@@ -8,7 +8,7 @@ const attendanceSchema = new mongoose.Schema(
 			required: true,
 			unique: true
 		},
-		// are they attending? true/false
+		// is the user attending? true/false
 		status: {
 			type: Boolean
 		},
@@ -19,11 +19,10 @@ const attendanceSchema = new mongoose.Schema(
 		}
 	},
 	{
-		// show when attendance was created
+		// show when the db item was created and accessed
 		timestamps: true
 	}
 )
-
 
 const Attendance = mongoose.model("Attendance", attendanceSchema)
 module.exports = Attendance

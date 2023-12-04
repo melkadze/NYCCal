@@ -1,11 +1,13 @@
+// Router for root (example.com/###)
+// Handles only the root URL
 const router = require("express").Router()
 
-// for now, just redirect to user settings if possible
+// Redirect to the event page
 router.get("/", (req, res) => {
-	try{
+	try {
 		res.redirect("/events")
 	} catch(err) {
-		functions.error(res, 500, err)
+		console.log(err)
 	}
 })
 

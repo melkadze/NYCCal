@@ -1,34 +1,37 @@
-const passport = require("passport")
-const GoogleStrategy = require("passport-google-oauth20")
-const User = require("../models/user")
-require("dotenv").config()
+// Configure passport
+const passport = require("passport") // use passport
+const GoogleStrategy = require("passport-google-oauth20") // use Google oAuth
+const User = require("../models/user") // reference our user model
+require("dotenv").config() // get the oAuth information from our .env file
 
-//encode user info
+// Method to encode user info
 passport.serializeUser((user, done) => {
 	done(null, user.id)
 })
 
-//decode user info
+// Method to decode user info
 passport.deserializeUser((id, done) => {
 	User.findById(id).then((user) => {
 		done(null, user)
 	})
 })
 
-//oauth
+// oAuth setup
 passport.use(
+	// use Google oAuth with our callback
 	new GoogleStrategy({
-		callbackURL: "http://localhost:3000/auth/google/redirect",
+		// Google does not support dynamic callback URLs, so we hardcode localhost
+		callbackURL: `http://localhost:${process.env.PORT}/auth/google/redirect`,
 		clientID: process.env.oAuthID,
 		clientSecret: process.env.oAuthSecret
 	}, (accessToken, refreshToken, profile, done) => {
-		//check if user already exists
+		// Check if user already exists
 		User.findOne({googleID: profile.id}).then((currentUser) => {
 			if (currentUser) {
-				//already have the user
+				// We already have the user, so we use the existing account
 				done(null, currentUser)
 			} else {
-				//if not, create new user
+				// If we don't have the user, create them in the DB
 				new User({
 					username: profile.displayName,
 					googleID: profile.id,

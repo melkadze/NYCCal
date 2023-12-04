@@ -1,5 +1,5 @@
+// Run as soon as the page is ready
 window.onload = function (){
-//const Link = require('react-router-dom')
 let date = new Date();
 let year = date.getFullYear();
 let month = date.getMonth();
@@ -108,7 +108,6 @@ const generate = () => {
 		}
         event += `<button title="${title}" timeLoc="${time_location}" summary="${summary}" price="${price}" eventid="${id}" class="ShareEventButton"> Share </button>`;
         event += `<hr> </div>`;
-		//console.log (event)
         return event;
     }
 	
@@ -129,20 +128,14 @@ const generate = () => {
 		
 		let result =""
 		
-		// TODO: currently gets all events. we need to date-gate it
-		//console.log("got response, or empty")
-		//console.log(response)
 		
 		// add first event in the response
 		if (response.length) {
             
-			//console.log(new Date(Date.parse(response[0].date)))
-			//console.log(new Date(Date.parse(date)))
 			resDate = new Date(Date.parse(response[0].date))
 			if (date.getDate() === resDate.getDate()
 				&& date.getMonth() === resDate.getMonth()
-				&& date.getFullYear() === resDate.getFullYear()) {
-				//console.log("ADDING!!!!!!!!!!!!!!!!!!")            
+				&& date.getFullYear() === resDate.getFullYear()) {         
                 if(counter === 3){
                 result += `<button class="Collapsible">See more events</button>`;
                 result += `<div class="Content">`;
@@ -167,19 +160,9 @@ const generate = () => {
 		}
 		
 		if (response.length > 1) {
-			// if more than one, then use recursion
-			//console.log(response.length)
             let recursionReturn ="";
-
-            //Creates the button when there are 3 events. HOWEVER, it does not know if there will be more events to add.
-            //I couldn't test it for days with only 3 events.
-
-
 			recursionReturn = addEventIfAvailable(date, response.slice(1),counter)
-			//console.log('recur', recursionReturn)
-			//console.log('result', result)
 			if (recursionReturn && !recursionReturn.includes`<div class=\"Event\"><h4>No events today!</h4><hr> </div>`) {
-				//console.log("uh oh")
 				
 				if (result) {
 					result += recursionReturn
@@ -192,16 +175,12 @@ const generate = () => {
 
 		// if no response, then exit
 		if (!result) {
-			//console.log("...or not!")
 			let event = "";
 			event += `<div class="Event">`;
 			event += `<h4>No events today!</h4>`;
 			event += `<hr> </div>`;
-			//console.log (event)
 			return event;
 		}
-		
-		//console.log("returning ", result)
 		return result
 	}
 
@@ -215,7 +194,6 @@ const generate = () => {
         var listingDate;
 
         if(month === todaysDate.getMonth() && year === todaysDate.getFullYear()){
-            //listingDate = new Date(todaysDate.getFullYear(), todaysDate.getMonth(), todaysDate.getDay());
 			 listingDate = new Date();
         }
         else {
@@ -226,16 +204,12 @@ const generate = () => {
         for(let i = listingDate.getDate(); i <= lastDateOfMonth.getDate(); i++){
             if(i === listingDate.getDate()){
                 listings.innerHTML += createEventHeader(listingDate,true);
-				//console.log("listing date ", listingDate)
 				listings.innerHTML += addEventIfAvailable(listingDate, response,0);
-                //listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
             }
             else{
                 var nextDate = new Date(listingDate.getFullYear(), listingDate.getMonth(), i);
                 listings.innerHTML += createEventHeader(nextDate,false);
-				//console.log("listing date2 ", nextDate)
 				listings.innerHTML += addEventIfAvailable(nextDate, response,0);
-                //listings.innerHTML += addEvent("Event 1", "12:00 Hunter College 410 West Building", "Some summary", "Free");
             }
         } 
         listings += `</div>`;    
@@ -243,7 +217,6 @@ const generate = () => {
         //Sign up Button
         var SignUpButtons = document.querySelectorAll(".SignUpButton");
         SignUpButtons.forEach((button) =>{
-            //console.log("THIS IS BUTTON" + button);
             button.addEventListener("click",function(){
             if(this.innerHTML === "Sign up"){
 				/// upload add
@@ -274,8 +247,9 @@ const generate = () => {
                 let string = this.getAttribute("title") + "\n" + this.getAttribute("timeLoc") + "\n" + this.getAttribute("summary")
 							 + "\n" + this.getAttribute("price") + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
 				navigator.clipboard.writeText(string);
-				//.then(() => alert("Copied"))
 				console.log(string);
+				this.style.background = "green";
+				this.innerHTML = "Copied to clipboard!"
 			})
 		});
 
@@ -299,11 +273,9 @@ const generate = () => {
         for(let i =1; i<32; i++){
             //get calendar date
             var calDate = document.getElementById("Calendar" + i);
-            //console.log(calDate);
             if(calDate != null){
                 //get listing to link
                 var listing = document.getElementById("Listing" + i);
-                //console.log(listing);
                 if(listing != null){
                     var link = "<a class='Calendar-Click' href='#" + listing.id +"'>" + i + "</a>";
                     calDate.innerHTML = link;
@@ -321,7 +293,6 @@ const generate = () => {
 		})
 		.then(response => response.json())
 		.then(response => {
-			//console.log(response)
 			createEventList(month,year,response);
 		})
 	}

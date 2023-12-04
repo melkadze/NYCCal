@@ -1,46 +1,40 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Event: <%= event.name %></title>
-	<!-- <link rel="icon" type="image/png" href="../assets/favicon.svg"> -->
-    <script src="../scripts/addEvent.js"> </script>
-	<link rel="stylesheet" href="http://localhost:3000/styles/singleevent.css">
-	<script src="http://localhost:3000/scripts/singleevent.js" ></script>
+	<link rel="stylesheet" href="../../styles/singleEvent.css">
+	<script src="../../scripts/singleEvent.js"></script>
 </head>
 <body>
 	<div>
         <ul class="Menu">
-            <li><a href="http://localhost:3000/events">Events</a></li>
-            <li><a href="http://localhost:3000/settings">Settings</a></li>
-            <li><a href="http://localhost:3000/attendance">Attendance</a></li>
-            <li style="float: right;padding-right: 10px;"><a href="/auth/logout">Logout</a></li>
+            <li><a href="/events">Events</a></li>
+            <li><a href="/settings">Settings</a></li>
+            <li><a href="/attendance">Attendance</a></li>
+            <li class="lastLi"><a href="/auth/logout">Logout</a></li>
         </ul>
     </div>
 	<br>
 	<div class="Info">
-	<h2 id="Title" ><%= event.name %></h2>
-	<h3 id= "Date" ><%= event.date %></h3>
-	<h3><b>Time and Location: </b><%= event.appointment %></h3>
-	<h3 id= "Summary"><%= event.summary %></h3>
-	<h3 ><b>Full description: </b><%= event.description %></h3>
-	<h3 ><b>Contact Info: </b><%= event.contact %></h3>
-	<h3 id="Price"><%= event.price %></h3>
-	<h3 ><b>Accessibility (if applicable): </b> <%= event.accessibility %></h3>
-	<h3 ><b>Users already signed up: </b>: <%= attendNumber %></h3>
+		<h2 id="Title" shareValue="<%= event.name %>"><b>Title: </b><%= event.name %></h2>
+		<h3 id="Date" shareValue="<%= event.date %>"><b>Date: </b><%= event.date %></h3>
+		<h3 id="TimeLocation"><b>Time and Location: </b><%= event.appointment %></h3>
+		<h3 id="Summary" shareValue="<%= event.summary %>"><b>Summary: </b><%= event.summary %></h3>
+		<h3 id="Description"><b>Full description: </b><%= event.description %></h3>
+		<h3 id="Contact"><b>Contact Info: </b><%= event.contact %></h3>
+		<h3 id="Price" shareValue="<%= event.price %>"><b>Price: </b><%= event.price %></h3>
+		<h3 id="Accessibility"><b>Accessibility: </b> <%= event.accessibility %></h3>
+		<h3 id="AttendNumber"><b>Users already signed up: </b>: <%= attendNumber %></h3>
 	
+		<% if(active) { %>
+				<button id="SignUp" eventid="<%= event._id %>" class="SignUpButton SignedUpButton">Signed up</button>
+		<% 	} else { %>
+				<button id="SignUp" eventid="<%= event._id %>" class="SignUpButton">Sign up</button>
+		<%	} %>
 	
-	
-	<% if(active) { %>
-			<button id="SignUp" eventid="<%= event._id %>" class="SignUpButton SignedUpButton">Signed up</button>
-	<% 	} else { %>
-			<button id="SignUp" eventid="<%= event._id %>" class="SignUpButton">Sign up</button>
-	<%	} %>
-	
-	
-	<!-- <button id="SignUp" eventid="<%= event._id %>" class="SignUpButton SignedUpButton">Signed up</button>-->
-	
-	
-	<button id="Share" eventid="<%= event._id %>" class="ShareEventButton"> Share </button>
+		<button id="Share" eventid="<%= event._id %>" class="ShareEventButton"> Share </button>
 	</div>
 </body>
+</html>

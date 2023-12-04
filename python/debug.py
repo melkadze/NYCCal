@@ -1,11 +1,13 @@
-import sys
-import platform
-import socket
+# Imports
+import sys # to send printout to Node
+import platform # for platform (OS and host) information
+import socket # for network (hostname) information
 
+# Print header
 print("ENVIRONMENT DEBUG INFORMATION")
 
 
-
+# Print Host CPU information
 print("\nHost CPU:")
 
 arch = platform.architecture()[0]
@@ -16,11 +18,11 @@ print(" - Machine: ", platform.machine())
 print(" - Processor: ", platform.processor())
 
 
-
+# Print Host OS information
 print("\nHost Operating System:")
 
 os = platform.system()
-# other platform text is Windows and Linux which are
+# other platform texts are Windows and Linux which are
 # self explanatory, so only edit Darwin to be macOS
 if os == "Darwin":
 	os = "macOS"
@@ -34,18 +36,18 @@ kernel = uname.version
 print(" - Kernel: ", kernel)
 
 
+# Print Network information
 print("\nNetwork:")
 print(" - Hostname: ", socket.gethostname())
 
 
-
+# Print Python information
 print("\nPython:")
 print(" - Version: ", platform.python_version())
 
 
-
+# Print parting message
 print("\nHave a nice day!")
-
 
 
 # Send everything we printed back to Node

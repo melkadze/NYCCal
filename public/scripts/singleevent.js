@@ -1,52 +1,49 @@
+// Run as soon as the page is ready
 window.onload = function () {
-    
+    // Helper function to get the share value of an attribute
+    function getShareValue(attribute) {
+		return document.getElementById(attribute).getAttribute("shareValue")
+    }
 
-    //Needs to get the old attributes for the share button so that the format is the same with other share buttons
-    const getAndReplaceOldDetails = (attribute)=>{
-        let starter = attribute;
-        let newAttribute = document.getElementById(starter);
-        let old = newAttribute.innerHTML;
-        newAttribute.innerHTML = "<b>" + starter+ ": </b>" + old;
-        //console.log(old);
-        return old;
-    }    
+	// Add functionality to the signup button
+    const signup = document.getElementById("SignUp");
+	signup.addEventListener("click",function(){
+		// If the current state is not signed up, then sign up
+		if(this.innerHTML === "Sign up"){
+			// Send the sign up request
+			fetch(`/attendance/add/${this.getAttribute("eventid")}`, {method: "GET"})
+			
+			// Style the button to show you are signed up
+			this.style.background = "green";
+			this.innerHTML = "Signed up";
+		} else {
+			// If the current state is signed up, then remove the sign up
+			// Send the delete sign up request
+			fetch(`/attendance/delete/${this.getAttribute("eventid")}`, {method: "GET"})
+			
+			// If the helper class exists, remove it now to allow the button to change state visually
+			// (the helper class is used when an event is shown as attended at page load)
+			if (this.classList.contains("SignedUpButton")) {
+				this.classList.remove("SignedUpButton")
+			}
+			
+			// Style the button to show you are not signed up
+			this.style.background = "blue";
+			this.innerHTML = "Sign up";
+		}
+	})
 
-    const title = getAndReplaceOldDetails("Title");
-    const date = getAndReplaceOldDetails("Date");
-    const summary = getAndReplaceOldDetails("Summary");
-    const price = getAndReplaceOldDetails("Price");
-
-    var button = document.getElementById("SignUp");
-        //console.log("THIS IS BUTTON" + button);
-        button.addEventListener("click",function(){
-            if(this.innerHTML === "Sign up"){
-                /// upload add
-                fetch(`/attendance/add/${this.getAttribute("eventid")}`,
-                      {method: "GET"})
-                
-                this.style.background = "green";
-                this.innerHTML = "Signed up";
-            }
-            else {
-                // upload remove
-				console.log("removing")
-                fetch(`/attendance/delete/${this.getAttribute("eventid")}`,
-                      {method: "GET"})
-                
-                if (this.classList.contains("SignedUpButton")) {
-                    this.classList.remove("SignedUpButton")
-                }
-                
-                this.style.background = "blue";
-                this.innerHTML = "Sign up";
-            }
-        })
-
-    var share = document.getElementById("Share");
+	// Add functionality to the share button
+    const share = document.getElementById("Share");
     share.addEventListener("click",function(){
-        let string = title + "\n" + date + "\n" + summary + "\n" + price + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
+		// Set the string that will be copied to clipboard
+        let string = getShareValue("Title") + "\n" + getShareValue("Date") + "\n" + getShareValue("Summary") + "\n" + getShareValue("Price") + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
+		
+		// Write the string
         navigator.clipboard.writeText(string);
-        //.then(() => alert("Copied"))
-        console.log(string);
+		
+		// Style the button to show the text was copied
+		this.style.background = "green";
+		this.innerHTML = "Copied to clipboard!"
     })
 }

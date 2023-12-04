@@ -1,6 +1,7 @@
-body{
+body {
     margin:0;
 }
+
 .Menu {
     list-style-type: none;
     margin-top: 0;
@@ -226,4 +227,9 @@ a:visited{
 
 .threePlus::before{
     background-color: red;
+}
+
+.lastLi {
+	float: right;
+	padding-right: 10px;
 }

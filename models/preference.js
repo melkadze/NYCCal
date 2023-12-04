@@ -2,11 +2,12 @@ const mongoose = require("mongoose")
 
 const preferenceSchema = new mongoose.Schema(
 	{
-		// tag name
+		// preference name
 		tag: {
-			type: String
+			type: String,
+			required: true
 		},
-		// tag true/false
+		// preference true/false
 		status: {
 			type: Boolean
 		},
@@ -17,11 +18,10 @@ const preferenceSchema = new mongoose.Schema(
 		}
 	},
 	{
-		// show when preference was created
+		// show when the db item was created and accessed
 		timestamps: true
 	}
 )
-
 
 const Preference = mongoose.model("Preference", preferenceSchema)
 module.exports = Preference
