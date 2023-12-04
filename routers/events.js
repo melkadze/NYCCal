@@ -27,7 +27,10 @@ router.get("/single/:id", auth, async (req, res) => {
 		}
 		console.log("here: ", attend)
 		
-		res.render("singleevent", {event: adv[0], active: attendStatus})
+		const attendAll = await Attendance.find({ event: req.params.id, status: true })
+		const attendNumber = attendAll.length
+		
+		res.render("singleevent", {event: adv[0], active: attendStatus, attendNumber: attendNumber})
 	} catch(err) {
 		console.log(err)
 		return
@@ -98,6 +101,11 @@ router.get("/get", auth, async (req, res) => {
 					
 					toPush["_doc"]["attending"] = attendStatus
 					
+					const attendAll = await Attendance.find({ event: allEvents[i]._id, status: true })
+					const attendNumber = attendAll.length
+					
+					toPush["_doc"]["attendNumber"] = attendNumber
+					
 					userEvents.push(toPush["_doc"])
 				}
 			}
@@ -133,6 +141,11 @@ router.get("/get/attending", auth, async (req, res) => {
 				}
 				
 				toPush["_doc"]["attending"] = attendStatus
+				
+				const attendAll = await Attendance.find({ event: allEvents[i]._id, status: true })
+				const attendNumber = attendAll.length
+				
+				toPush["_doc"]["attendNumber"] = attendNumber
 				
 				if (attendStatus) {
 					userEvents.push(toPush["_doc"])

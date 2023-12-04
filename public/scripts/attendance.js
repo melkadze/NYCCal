@@ -4,7 +4,7 @@ window.onload = function (){
 
 
     //Function to add an event
-	const addEvent = (title, time_location, summary, price, status, id) => {
+	const addEvent = (title, time_location, summary, price, status, id, attend_number) => {
 		let link = "/events/single/" + id;
 		let event = "";
 		event += `<div class="Event">`;
@@ -12,6 +12,7 @@ window.onload = function (){
 		event += `<h3><a href="${link}">Time and Location: ${time_location}</a></h3>`;
 		event += `<h3><a href="${link}">Summary: ${summary}</a></h3>`;
 		event += `<h3><a href="${link}">Price: ${price}</a></h3>`;
+		event += `<h3><a href="${link}">Users already signed up: ${attend_number}</a></h3>`;
 		if (status) {
 			event += `<button eventid="${id}" class="SignUpButton SignedUpButton">Signed up</button>`;
 		} else {
@@ -32,7 +33,7 @@ window.onload = function (){
         //listing.innerHTML += addEvent("Title", 11,15,2023,"Some place | 19:00", "Some summary", "Free", false);
         //listing.innerHTML += addEvent("Title", 12,10,2023,"Some place | 20:00", "Some summary", "Free", false);
 		for (let i = 0; i < response.length; i++) {
-			listing.innerHTML += addEvent(response[i].name, response[i].appointment, response[i].summary, response[i].price, response[i].attending, response[i]._id)
+			listing.innerHTML += addEvent(response[i].name, response[i].appointment, response[i].summary, response[i].price, response[i].attending, response[i]._id, response[0].attendNumber)
 		}
 
 		

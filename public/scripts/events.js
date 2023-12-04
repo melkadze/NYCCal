@@ -92,14 +92,15 @@ const generate = () => {
     });
 
     //Function to add an event
-    const addEvent = (title, time_location, summary, price, status, id) => {
+    const addEvent = (title, time_location, summary, price, status, id, attend_number) => {
         let link = "/events/single/" + id;
         let event = "";
         event += `<div class="Event">`;
         event += `<h2><a href="${link}">${title}</a></h2>`;
         event += `<h3><a href="${link}">Time and Location: ${time_location}</a></h3>`;
         event += `<h3><a href="${link}">Summary: ${summary}</a></h3>`;
-        event += `<h3><a href="${link}">Price: ${price}</a></h3>`;
+		event += `<h3><a href="${link}">Price: ${price}</a></h3>`;
+		event += `<h3><a href="${link}">Users already signed up: ${attend_number}</a></h3>`;
 		if (status) {
 			event += `<button eventid="${id}" class="SignUpButton SignedUpButton">Signed up</button>`;
 		} else {
@@ -147,7 +148,7 @@ const generate = () => {
                 result += `<div class="Content">`;
                 }
 				console.log(response[0])
-				result += addEvent(response[0].name, response[0].appointment, response[0].summary, response[0].price, response[0].attending, response[0]._id)
+				result += addEvent(response[0].name, response[0].appointment, response[0].summary, response[0].price, response[0].attending, response[0]._id, response[0].attendNumber)
                 counter++;
                 var calDate = document.getElementById("Calendar" + date.getDate());
                 if(counter ===1){
