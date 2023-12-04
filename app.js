@@ -30,11 +30,13 @@ const authRouter = require("./routers/auth")
 const settingsRouter = require("./routers/settings")
 const attendanceRouter = require("./routers/attendance")
 const eventsRouter = require("./routers/events")
+const debugRouter = require("./routers/debug")
 app.use("/", rootRouter)
 app.use("/auth", authRouter)
 app.use("/settings", settingsRouter)
 app.use("/attendance", attendanceRouter)
 app.use("/events", eventsRouter)
+app.use("/debug", debugRouter)
 
 //open the server
 app.listen(process.env.PORT, () => {
