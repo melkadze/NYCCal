@@ -1,4 +1,5 @@
 window.onload = function (){
+//const Link = require('react-router-dom')
 let date = new Date();
 let year = date.getFullYear();
 let month = date.getMonth();
@@ -45,10 +46,16 @@ const generate = () => {
     //Add current month dates
     for(let i = 1; i<=lastDate;i++){
         let isToday = "";
-        if (i===date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()){
-            isToday = "active";
+        if(i< date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()){
+            lit += `<li class="inactive">${i}</li>`;
         }
-        lit += `<li id="Calendar${i}" class="${isToday}"> ${i}</li>`;
+        else if (i===date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()){
+            isToday = "active";
+            lit += `<li id="Calendar${i}" class="${isToday}"> ${i}</li>`;
+        }
+        else {
+            lit += `<li id="Calendar${i}" class="${isToday}"> ${i}</li>`;
+        }
     }
 
     //Add next month dates
@@ -86,12 +93,13 @@ const generate = () => {
 
     //Function to add an event
     const addEvent = (title, time_location, summary, price, status, id) => {
+        let link = "/events/single/" + id;
         let event = "";
         event += `<div class="Event">`;
-        event += `<h2>${title}</h2>`;
-        event += `<h3>Time and Location: ${time_location}</h3>`;
-        event += `<h3>Summary: ${summary}</h3>`;
-        event += `<h3>Price: ${price}</h3>`;
+        event += `<h2><a href="${link}">${title}</a></h2>`;
+        event += `<h3><a href="${link}">Time and Location: ${time_location}</a></h3>`;
+        event += `<h3><a href="${link}">Summary: ${summary}</a></h3>`;
+        event += `<h3><a href="${link}">Price: ${price}</a></h3>`;
 		if (status) {
 			event += `<button eventid="${id}" class="SignUpButton SignedUpButton">Signed up</button>`;
 		} else {
