@@ -1,98 +1,112 @@
 // Run as soon as the page is ready
 window.onload = function (){
-    //Function to add an event
+    // Function to add an event
 	const addEvent = (title, time_location, summary, price, status, id, attend_number) => {
+		// Set up the link for the single event page
 		let link = "/events/single/" + id;
+		
+		// Create an empty event element
 		let event = "";
+		
+		// Add event attributes to the element
 		event += `<div class="Event">`;
 		event += `<h2><a href="${link}">${title}</a></h2>`;
 		event += `<h3><a href="${link}">Time and Location: ${time_location}</a></h3>`;
 		event += `<h3><a href="${link}">Summary: ${summary}</a></h3>`;
 		event += `<h3><a href="${link}">Price: ${price}</a></h3>`;
 		event += `<h3><a href="${link}">Users already signed up: ${attend_number}</a></h3>`;
+		
+		// If the event is active, mark it as Signed Up,
+		// otherwise make it Sign Up (inactive)
 		if (status) {
 			event += `<button eventid="${id}" class="SignUpButton SignedUpButton">Signed up</button>`;
 		} else {
 			event += `<button eventid="${id}" class="SignUpButton">Sign up</button>`;
 		}
+		
+		// Add the Share button
 		event += `<button title="${title}" timeLoc="${time_location}" summary="${summary}" price="${price}" "eventid="${id}" class="ShareEventButton"> Share </button>`;
+		
+		// End the element and return it
 		event += `<hr> </div>`;
 		return event;
 	}
     
+	// Create the list of events on the page
     const createEventList = (response) =>{
-        var listing = document.getElementById("EventList"); //gets list id
+		// Get the listing element
+        const listing = document.getElementById("EventList");
+		
+		// Add the events themselves based on the response from the server
 		for (let i = 0; i < response.length; i++) {
 			listing.innerHTML += addEvent(response[i].name, response[i].appointment, response[i].summary, response[i].price, response[i].attending, response[i]._id, response[0].attendNumber)
 		}
 
-        //Sign up Button
-		var SignUpButtons = document.querySelectorAll(".SignUpButton");
+        // Add functionality to the signup buttons
+		const SignUpButtons = document.querySelectorAll(".SignUpButton");
+		// Execute on all sign up buttons
 		SignUpButtons.forEach((button) =>{
 			button.addEventListener("click",function(){
+				// If the current state is not signed up, then sign up
 				if(this.innerHTML === "Sign up"){
-					/// upload add
+					// Send the sign up request
 					fetch(`/attendance/add/${this.getAttribute("eventid")}`,
 						  {method: "GET"})
 					
+					// Style the button to show you are signed up
 					this.style.background = "green";
 					this.innerHTML = "Signed up";
-				}
-				else {
-					// upload remove
-					fetch(`/attendance/delete/${this.getAttribute("eventid")}`,
-						  {method: "GET"})
+				} else {
+					// If the current state is signed up, then remove the sign up
+					// Send the delete sign up request
+					fetch(`/attendance/delete/${this.getAttribute("eventid")}`, {method: "GET"})
 					
+					// If the helper class exists, remove it now to allow the button to change state visually
+					// (the helper class is used when an event is shown as attended at page load)
 					if (this.classList.contains("SignedUpButton")) {
 						this.classList.remove("SignedUpButton")
 					}
 					
+					// Style the button to show you are not signed up
 					this.style.background = "blue";
 					this.innerHTML = "Sign up";
 				}
-			});})
+			});
+		})
 
-        //Share Button
-        var ShareButtons = document.querySelectorAll(".ShareEventButton");
+		// Add functionality to the share button
+        const ShareButtons = document.querySelectorAll(".ShareEventButton");
+		// Execute on each share button
         ShareButtons.forEach((button)=>{
             button.addEventListener("click",function(){
-                let string = this.getAttribute("title") + "\n" + this.getAttribute("timeLoc") + "\n" + this.getAttribute("summary")
-							 + "\n" + this.getAttribute("price") + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
-                navigator.clipboard.writeText(string);
+				// Set the string that will be copied to clipboard
+                let clip = this.getAttribute("title") + "\n" + this.getAttribute("timeLoc") + "\n" + this.getAttribute("summary") + "\n" + this.getAttribute("price") + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
+				
+				// Write the string
+                navigator.clipboard.writeText(clip);
+				
+				// Style the button to show the text was copied
 				this.style.background = "green";
 				this.innerHTML = "Copied to clipboard!"
             })
         });
-
-        //More Events Button
-        var colls = document.querySelectorAll(".Collapsible");
-        colls.forEach((coll)=>{
-            coll.addEventListener("click", function(){
-                var content = this.nextElementSibling;
-                if(content.style.display === 'block'){
-                    content.style.display = 'none';
-                    this.style.background = "black";
-                }
-                else {
-                    content.style.display = "block";
-                    this.style.background = "green";
-                }
-            });
-        });        
     }
 	
+	// Get the events and create the event list
 	const fetchEvents = () => {
 		fetch("/events/get/attending", {
-		method: "GET",
-		headers: {
-			"Content-type": "application/json"
-		}
-		})
+			method: "GET",
+			headers: {
+				"Content-type": "application/json"
+			}
+		}) // After we fetch, make them into JSON
 		.then(response => response.json())
 		.then(response => {
+			// Create the events list
 			createEventList(response);
 		})
 	}
 
+	// Start fetching the events
 	fetchEvents();
 }

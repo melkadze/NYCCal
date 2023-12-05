@@ -37,10 +37,10 @@ window.onload = function () {
     const share = document.getElementById("Share");
     share.addEventListener("click",function(){
 		// Set the string that will be copied to clipboard
-        let string = getShareValue("Title") + "\n" + getShareValue("Date") + "\n" + getShareValue("Summary") + "\n" + getShareValue("Price") + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
+        let clip = getShareValue("Title") + "\n" + getShareValue("Date") + "\n" + getShareValue("Summary") + "\n" + getShareValue("Price") + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
 		
 		// Write the string
-        navigator.clipboard.writeText(string);
+        navigator.clipboard.writeText(clip);
 		
 		// Style the button to show the text was copied
 		this.style.background = "green";
