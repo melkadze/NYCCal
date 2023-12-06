@@ -1,7 +1,7 @@
 // Run as soon as the page is ready
 window.onload = function (){
     // Function to add an event
-	const addEvent = (title, time_location, summary, price, status, id, attend_number) => {
+	const addEvent = (title, time_location, summary, price, status, id, attend_number, history) => {
 		// Set up the link for the single event page
 		let link = "/events/single/" + id;
 		
@@ -9,7 +9,13 @@ window.onload = function (){
 		let event = "";
 		
 		// Add event attributes to the element
-		event += `<div class="Event">`;
+		if(history)
+		{
+			event += `<div class="EventHistory" style="overflow: hidden;display: none;">`;
+		}
+		else {
+			event += `<div class="Event">`;
+		}
 		event += `<h2><a href="${link}">${title}</a></h2>`;
 		event += `<h3><a href="${link}">Time and Location: ${time_location}</a></h3>`;
 		event += `<h3><a href="${link}">Summary: ${summary}</a></h3>`;
@@ -32,14 +38,69 @@ window.onload = function (){
 		return event;
 	}
     
+	const createHistoryList = (response) =>{
+		const listing = document.getElementById("HistoryList");
+		listing.innerHTML += `<button class="Collapsible">Previous events</button>`;
+		// num of events to check if any
+		let numEvents = 0;
+		//get today's date
+		let dateToday = new Date();
+		for (let i = 0; i < response.length; i++) {
+			//response's date
+			let resDate = new Date(Date.parse(response[i].date))
+			//If the event is from previous years OR if the event is from this year but previous months OR if the event is from this month but previous days
+			if(dateToday.getFullYear() > resDate.getFullYear() || 
+			(dateToday.getFullYear() === resDate.getFullYear() && dateToday.getMonth() > resDate.getMonth()) || 
+			(dateToday.getMonth() === resDate.getMonth() && dateToday.getDate() > resDate.getDate())){
+				listing.innerHTML += addEvent(response[i].name, response[i].appointment, response[i].summary, response[i].price, response[i].attending, response[i]._id, response[0].attendNumber, true)
+				numEvents++;
+			}
+		}
+
+		// get collapsible
+		const coll = document.querySelector(".Collapsible");
+		
+		if(numEvents === 0){
+			coll.innerHTML = "There are no previous events";
+		}
+		coll.addEventListener("click", function(){
+			if (numEvents > 0) {
+				// Set the content that will be collapsed
+				const oldEvents = document.querySelectorAll(".EventHistory");
+
+				// Toggle if the content is displayed, and if the More Events button is active
+				if (this.style.background != 'green') {
+					oldEvents.forEach((event) => {
+						event.style.display = "block";
+					})
+					this.style.background = 'green'
+				}
+				else {
+					oldEvents.forEach((event) => {
+						event.style.display = "none";
+					})
+					this.style.background = 'black'
+				}
+			}
+		});
+	}
+
 	// Create the list of events on the page
     const createEventList = (response) =>{
 		// Get the listing element
         const listing = document.getElementById("EventList");
-		
+		//get today's date
+		let dateToday = new Date();		
 		// Add the events themselves based on the response from the server
 		for (let i = 0; i < response.length; i++) {
-			listing.innerHTML += addEvent(response[i].name, response[i].appointment, response[i].summary, response[i].price, response[i].attending, response[i]._id, response[0].attendNumber)
+			//response's date
+			let resDate = new Date(Date.parse(response[i].date))			
+			//If the event is from future years OR if the event is from this year but future months OR if the event is from this month but future days or today
+			if(dateToday.getFullYear() < resDate.getFullYear() || 
+			(dateToday.getFullYear() === resDate.getFullYear() && dateToday.getMonth() < resDate.getMonth()) || 
+			(dateToday.getMonth() === resDate.getMonth() && dateToday.getDate() <= resDate.getDate())){
+				listing.innerHTML += addEvent(response[i].name, response[i].appointment, response[i].summary, response[i].price, response[i].attending, response[i]._id, response[0].attendNumber)
+			}			
 		}
 
         // Add functionality to the signup buttons
@@ -102,6 +163,8 @@ window.onload = function (){
 		}) // After we fetch, make them into JSON
 		.then(response => response.json())
 		.then(response => {
+			//Create history attendance
+			createHistoryList(response);
 			// Create the events list
 			createEventList(response);
 		})

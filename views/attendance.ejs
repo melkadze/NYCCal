@@ -10,9 +10,9 @@
 <body>
     <div class="MenuDiv">
         <ul class="Menu">
-            <li><a href="events">Events</a></li>
-            <li><a href="settings">Settings</a></li>
-            <li><a href="#">Attendance</a></li>
+            <li class="notLogout"><a href="events">Events</a></li>
+            <li class="notLogout"><a href="settings">Settings</a></li>
+            <li class="notLogout"><a href="#">Attendance</a></li>
             <li class="lastLi"><a href="/auth/logout">Logout</a></li>
         </ul>
     </div>
@@ -20,6 +20,9 @@
         <img class="ProfilePic" src="<%= user.thumbnailURL %>">
         <h2 id="Message" class="Message"> Hello, <%= user.username %></h2>
     </div>
+    <h1 class="Attending">Events Attended:</h1>
+    <hr>
+    <div id="HistoryList"></div>
     <h1 class="Attending">Events Attending:</h1>
     <hr>
     <div id="EventList"></div>
