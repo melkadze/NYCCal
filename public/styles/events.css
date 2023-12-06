@@ -15,7 +15,7 @@ body {
     z-index: 9999;
 }
 
-.Menu li {
+.notLogout {
     float: left;
 }
 

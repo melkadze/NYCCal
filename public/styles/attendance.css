@@ -15,7 +15,7 @@ body {
     z-index: 9999;
 }
 
-.Menu li {
+.notLogout{
     float: left;
 }
 
@@ -102,4 +102,20 @@ a:visited{
 
 .MenuDiv {
 	height: 40px;
+}
+
+.Collapsible {
+    font-size:25px;
+    background: black;
+    color: white;
+    padding: 2%;
+    border: none;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 3%;
+    text-align: center;
+}
+
+.EventHistory {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
