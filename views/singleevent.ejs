@@ -19,14 +19,14 @@
 	<br>
 	<div class="Info">
 		<h2 id="Title" shareValue="<%= event.name %>"><b>Title: </b><%= event.name %></h2>
-		<h3 id="Date" shareValue="<%= event.date %>"><b>Date: </b><%= event.date %></h3>
+		<h3 id="Date" shareValue="<%= event.date.getMonth()+1 + "/" + event.date.getDate() + "/" + event.date.getFullYear() %>"><b>Date: </b><%= event.date.getMonth()+1 + "/" + event.date.getDate() + "/" + event.date.getFullYear() %></h3>
 		<h3 id="TimeLocation"><b>Time and Location: </b><%= event.appointment %></h3>
 		<h3 id="Summary" shareValue="<%= event.summary %>"><b>Summary: </b><%= event.summary %></h3>
 		<h3 id="Description"><b>Full description: </b><%= event.description %></h3>
 		<h3 id="Contact"><b>Contact Info: </b><%= event.contact %></h3>
 		<h3 id="Price" shareValue="<%= event.price %>"><b>Price: </b><%= event.price %></h3>
 		<h3 id="Accessibility"><b>Accessibility: </b> <%= event.accessibility %></h3>
-		<h3 id="AttendNumber"><b>Users already signed up: </b>: <%= attendNumber %></h3>
+		<h3 id="AttendNumber"><b>Users already signed up: </b><%= attendNumber %></h3>
 	
 		<% if(active) { %>
 				<button id="SignUp" eventid="<%= event._id %>" class="SignUpButton SignedUpButton">Signed up</button>
