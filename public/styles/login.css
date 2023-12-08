@@ -9,5 +9,11 @@ div {
 }
 
 div h2 {
-    padding-top: 250px;
+    padding-top: 50px;
+}
+
+.logo {
+    padding-top: 100px;
+    width: 300px;
+    height: 150px;
 }

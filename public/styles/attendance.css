@@ -30,6 +30,12 @@ body {
     background-color: #111;
 }
 
+.logo{
+    font-family:'Courier New', Courier, monospace;
+    color: white;
+    float:left;
+}
+
 .profile-pic{
     position: relative;
 }
