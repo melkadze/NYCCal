@@ -31,7 +31,7 @@ window.onload = function (){
 		}
 		
 		// Add the Share button
-		event += `<button title="${title}" timeLoc="${time_location}" summary="${summary}" price="${price}" "eventid="${id}" class="ShareEventButton"> Share </button>`;
+		event += `<button title="${title}" timeLoc="${time_location}" summary="${summary}" price="${price}" eventid="${id}" class="ShareEventButton"> Share </button>`;
 		
 		// End the element and return it
 		event += `<hr> </div>`;

@@ -50,21 +50,31 @@ window.onload = function (){
 			lit += `<li class="inactive">${lastMonthDate-i+1}</li>`;
 		}
 
-		// Add current month's dates
-		for (let i = 1; i <= lastDate; i++) {
-			// If the date is before today, make it inactive
-			if (i < date.getDate() && month == new Date().getMonth() && year == new Date().getFullYear()) {
-				lit += `<li class="inactive">${i}</li>`;
-			} else if (i == date.getDate() && month == new Date().getMonth() && year == new Date().getFullYear()) {
-				// If the date is today, make it active
-				isToday = "active";
-				lit += `<li id="Calendar${i}" class="active"> ${i}</li>`;
-			} else {
-				// If the date is after today, make it normal/unselected
-				lit += `<li id="Calendar${i}"> ${i}</li>`;
+		// Get today's date
+        const todaysDate = new Date();
+		//If the year is before current year or year is the same but month is before current month
+		if (todaysDate.getFullYear() > year || (todaysDate.getFullYear() === year && todaysDate.getMonth() > month)) {
+			// Add current month's dates
+			for (let i = 1; i <= lastDate; i++) {
+					lit += `<li class="inactive">${i}</li>`;
 			}
 		}
-
+		else {
+			// Add current month's dates
+			for (let i = 1; i <= lastDate; i++) {
+				// If the date is before today, make it inactive
+				if (i < date.getDate() && month == new Date().getMonth() && year == new Date().getFullYear()) {
+					lit += `<li class="inactive">${i}</li>`;
+				} else if (i == date.getDate() && month == new Date().getMonth() && year == new Date().getFullYear()) {
+					// If the date is today, make it active
+					isToday = "active";
+					lit += `<li id="Calendar${i}" class="active"> ${i}</li>`;
+				} else {
+					// If the date is after today, make it normal/unselected
+					lit += `<li id="Calendar${i}"> ${i}</li>`;
+				}
+			}
+		}
 		// Add next month's dates (that appear after the last of this month)
 		for(let i= dayLast; i < 6; i++){
 			lit += `<li class="inactive">${i-dayLast+1}</li>`;
@@ -89,7 +99,8 @@ window.onload = function (){
 			} else {
 				month = month +1;
 			}
-		   
+			icon.style.pointerEvents = "none"; 
+			setTimeout(function(){icon.style.pointerEvents = "";},2000); //
 		    // If we change year, update the date accordingly
 			if (month<0 || month>11) {
 				date = new Date(year,month, new Date().getDate());
@@ -130,7 +141,7 @@ window.onload = function (){
 		}
 		
 		// Add the Share button
-		event += `<button title="${title}" timeLoc="${time_location}" summary="${summary}" price="${price}" "eventid="${id}" class="ShareEventButton"> Share </button>`;
+		event += `<button title="${title}" timeLoc="${time_location}" summary="${summary}" price="${price}" eventid="${id}" class="ShareEventButton"> Share </button>`;
 		
 		// End the element and return it
 		event += `<hr> </div>`;
