@@ -37,7 +37,7 @@ window.onload = function () {
     const share = document.getElementById("Share");
     share.addEventListener("click",function(){
 		// Set the string that will be copied to clipboard
-        let clip = getShareValue("Title") + "\n" + getShareValue("Date") + "\n" + getShareValue("Summary") + "\n" + getShareValue("Price") + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
+        let clip = getShareValue("Title") + "\n" + getShareValue("Date") + "\n" + getShareValue("Summary") + "\n" + getShareValue("Price") + "\nhttps://nyccal.glitch.me/events/single/" + this.getAttribute("eventid");
 		
 		// Write the string
         navigator.clipboard.writeText(clip);

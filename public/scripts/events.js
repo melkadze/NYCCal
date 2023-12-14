@@ -325,7 +325,7 @@ window.onload = function (){
 		ShareButtons.forEach((button)=>{
 			button.addEventListener("click",function(){
 				// Set the string that will be copied to clipboard
-				let clip = this.getAttribute("title") + "\n" + this.getAttribute("timeLoc") + "\n" + this.getAttribute("summary") + "\n" + this.getAttribute("price") + "\nlocalhost:3000/events/single/" + this.getAttribute("eventid");
+				let clip = this.getAttribute("title") + "\n" + this.getAttribute("timeLoc") + "\n" + this.getAttribute("summary") + "\n" + this.getAttribute("price") + "\https://nyccal.glitch.me/events/single/" + this.getAttribute("eventid");
 				
 				// Write the string
 				navigator.clipboard.writeText(clip);
