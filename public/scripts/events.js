@@ -34,13 +34,13 @@ window.onload = function (){
 		let dayOne = new Date(year,month,1).getDay();
 
 		// Last date of the month
-		let lastDate = new Date(year,month+1,0).getDate();
+		let lastDate = new Date(year, month+1, 0).getDate();
 
 		// Last day of the month
 		let dayLast = new Date(year, month, lastDate).getDay();
 
 		// Last date of previous month
-		let lastMonthDate = new Date(year,month,0).getDate();
+		let lastMonthDate = new Date(year, month, 0).getDate();
 
 		// Get an empty element for our calendar
 		let lit = "";
@@ -58,8 +58,7 @@ window.onload = function (){
 			for (let i = 1; i <= lastDate; i++) {
 					lit += `<li class="inactive">${i}</li>`;
 			}
-		}
-		else {
+		} else {
 			// Add current month's dates
 			for (let i = 1; i <= lastDate; i++) {
 				// If the date is before today, make it inactive
