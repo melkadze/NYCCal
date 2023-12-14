@@ -20,8 +20,8 @@ passport.deserializeUser((id, done) => {
 passport.use(
 	// use Google oAuth with our callback
 	new GoogleStrategy({
-		// Google does not support dynamic callback URLs, so we hardcode localhost
-		callbackURL: `http://localhost:${process.env.PORT}/auth/google/redirect`,
+		// Set the URL of our hosted application
+		callbackURL: `http://nyccal.glitch.me/auth/google/redirect`,
 		clientID: process.env.oAuthID,
 		clientSecret: process.env.oAuthSecret
 	}, (accessToken, refreshToken, profile, done) => {

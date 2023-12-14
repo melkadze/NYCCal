@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node --no-deprecation app.js"
   },
+  "engines": {
+	  "node": "16.14.2"
+  },
   "keywords": [],
   "author": "Nick Melkadze and Brajan Halili",
   "license": "N/A",
