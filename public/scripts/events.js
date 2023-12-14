@@ -260,9 +260,14 @@ window.onload = function (){
         if (year < todaysDate.getFullYear() || (year == todaysDate.getFullYear() && month < todaysDate.getMonth())) {
             return
         }
-		
+		let listingDate;
 		// Set variables for the listing's date, and the last day of its month
-        const listingDate = new Date(year, month, 1)
+		if(todaysDate.getMonth() === month && todaysDate.getFullYear() === year){
+			 listingDate = todaysDate;
+		}
+		else {
+			listingDate = new Date(year,month,1);
+		}
         const lastDateOfMonth = new Date(listingDate.getFullYear(), listingDate.getMonth() + 1, 0)
 		
 		// Process on the days between the listing's date, and the last day of its month
