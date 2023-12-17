@@ -34,8 +34,5 @@ Once you have installed all prerequisites and dependencies, and have set up the 
 > npm start
 
 ### Accessing NYCCal!
-When running, NYCCal! will report the port it is open on within the terminal in which you run it (which you may change in the .env file). In order to access NYCCal! when run locally, you can navigate to the following URL on your web browser of choice:
-> localhost:<port number>
-
-Using the default port number of 3000, you can access NYCCal! at:
+When running, NYCCal! will report the port it is open on within the terminal in which you run it (which you may change in the .env file). In order to access NYCCal! when run locally when using the default port number of 3000, you can navigate to the following URL on your web browser of choice:
 > localhost:3000
