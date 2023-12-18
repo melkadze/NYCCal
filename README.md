@@ -25,6 +25,7 @@ Check out our guide below:
 
 ### Prerequisites
 Node 16.14.2
+
 Python 3.7.10
 
 ### Downloading dependencies
