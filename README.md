@@ -16,7 +16,7 @@ We used many technologies in NYCCal!, listed below. The first two are downloaded
  - Path 0.12.7: Better path management (to have a clean folder structure)
 
 ## Want to use NYCCal!?
-Check out our hosted version of the app on [Glitch](nyccal.glitch.me)!
+Check out our hosted version of the app on [Glitch](https://nyccal.glitch.me)!
 
 We deployed on Glitch because it allows us to import this GitHub repo, and runs the `npm start` command on it (which launches our server). In order for Google to allow authentication from its URL, we also updated our oAuth token. 
 
