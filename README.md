@@ -23,7 +23,7 @@ We deployed on Glitch because it allows us to import this GitHub repo, and runs 
 ## Want to build NYCCal!?
 Check out our guide below:
 
-### Prerequisites:
+### Prerequisites
 Node 16.14.2
 Python 3.7.10
 
