@@ -1,5 +1,5 @@
 # NYCCal!
-A mobile-first events registration and discovery website with a focus on New York City. Developed by Nick Melkadze and Brajan Halili for CSCI 499 at Hunter College.
+An engagement-focused mobile event browsing, planning, and registration website, built for New York City (and pronounced Nice-cal!). Developed by Nick Melkadze and Brajan Halili for CSCI 499 at Hunter College.
 
 ## Documentation and Screenshots
 Below, we provide information on how to build and run NYCCal! for yourself. If you would like to learn more about this project itself, please view its [comprehensive documentation](https://github.com/melkadze/NYCCal/blob/main/Final%20Documentation%20—%20NYCCal!.pdf)! Additionally, there are screenshots with explanations available in Section 4.
